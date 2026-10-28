@@ -1,0 +1,280 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-28T14:58:35.755Z",
+  "nodeVersion": "v24.21.0",
+  "mode": "syntax-only",
+  "localChecksPass": true,
+  "realPostgresConfigured": true,
+  "realPostgresEvidence": true,
+  "step22EvidencePath": "artifacts/step22/RUNTIME_EVIDENCE.json",
+  "runtimeLifecycleEvidence": true,
+  "step23EvidencePath": "artifacts/step23/RUNTIME_LIFECYCLE_EVIDENCE.json",
+  "runtimeProbes": [
+    "/healthz",
+    "/readyz",
+    "/metrics"
+  ],
+  "runtimeBackend": "configurable-sqlite-postgres",
+  "acceptanceGate": {
+    "decision": "BLOCKED",
+    "blockingCount": 5
+  },
+  "acceptanceEvidencePath": "artifacts/acceptance/ACCEPTANCE_GATE_RESULT.json",
+  "testSummary": null,
+  "findings": [
+    {
+      "check": "required:README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "required:openapi.yaml",
+      "status": "PASS"
+    },
+    {
+      "check": "required:MIGRATION_CUTOVER_GATE_GUIDE.md",
+      "status": "PASS"
+    },
+    {
+      "check": "required:SQLITE_TO_POSTGRES_MIGRATION_GUIDE.md",
+      "status": "PASS"
+    },
+    {
+      "check": "required:POSTGRESQL_ADAPTER_GUIDE.md",
+      "status": "PASS"
+    },
+    {
+      "check": "required:STEP17_TEST_REPORT.md",
+      "status": "PASS"
+    },
+    {
+      "check": "required:STEP22_REAL_POSTGRES_REPORT.md",
+      "status": "PASS"
+    },
+    {
+      "check": "required:STEP22_BASELINE_AND_HANDOFF.md",
+      "status": "PASS"
+    },
+    {
+      "check": "required:STEP23_RUNTIME_OBSERVABILITY_REPORT.md",
+      "status": "PASS"
+    },
+    {
+      "check": "required:STEP23_BASELINE_AND_HANDOFF.md",
+      "status": "PASS"
+    },
+    {
+      "check": "required:STEP24_EXTERNAL_EVIDENCE_REPORT.md",
+      "status": "PASS"
+    },
+    {
+      "check": "required:STEP24_BASELINE_AND_HANDOFF.md",
+      "status": "PASS"
+    },
+    {
+      "check": "required:STEP24_REVIEW_LOG.md",
+      "status": "PASS"
+    },
+    {
+      "check": "required:STEP25_HUMAN_ACTION_REPORT.md",
+      "status": "PASS"
+    },
+    {
+      "check": "required:scripts/next-human-action.mjs",
+      "status": "PASS"
+    },
+    {
+      "check": "required:行动包/README_真人动作行动包.md",
+      "status": "PASS"
+    },
+    {
+      "check": "required:行动包/01_CI平台动作卡.md",
+      "status": "PASS"
+    },
+    {
+      "check": "required:行动包/02_staging环境动作卡.md",
+      "status": "PASS"
+    },
+    {
+      "check": "required:行动包/03_安全审查动作卡.md",
+      "status": "PASS"
+    },
+    {
+      "check": "required:行动包/04_四方签署动作卡.md",
+      "status": "PASS"
+    },
+    {
+      "check": "required:行动包/05_门禁复核与发布动作卡.md",
+      "status": "PASS"
+    },
+    {
+      "check": "required:行动包/安全审查记录模板.json",
+      "status": "PASS"
+    },
+    {
+      "check": "required:行动包/审批记录模板.json",
+      "status": "PASS"
+    },
+    {
+      "check": "required:docs/release/REAL_POSTGRES_DRILL_GUIDE.md",
+      "status": "PASS"
+    },
+    {
+      "check": "required:scripts/step22-runtime-evidence.mjs",
+      "status": "PASS"
+    },
+    {
+      "check": "required:scripts/step23-runtime-evidence.mjs",
+      "status": "PASS"
+    },
+    {
+      "check": "required:docs/release/SECURITY_REVIEW_PREP.md",
+      "status": "PASS"
+    },
+    {
+      "check": "required:docs/release/CI_EVIDENCE_ARCHIVE_GUIDE.md",
+      "status": "PASS"
+    },
+    {
+      "check": "required:docs/release/STAGING_REHEARSAL_RUNBOOK.md",
+      "status": "PASS"
+    },
+    {
+      "check": "required:docs/release/ACCEPTANCE_EVIDENCE_GATE.md",
+      "status": "PASS"
+    },
+    {
+      "check": "required:src/server.js",
+      "status": "PASS"
+    },
+    {
+      "check": "required:src/http/probe-endpoints.js",
+      "status": "PASS"
+    },
+    {
+      "check": "required:src/http/shutdown.js",
+      "status": "PASS"
+    },
+    {
+      "check": "required:src/observability/metrics.js",
+      "status": "PASS"
+    },
+    {
+      "check": "required:src/acceptance/acceptance-gate.js",
+      "status": "PASS"
+    },
+    {
+      "check": "required:scripts/ci-local-evidence.mjs",
+      "status": "PASS"
+    },
+    {
+      "check": "required:scripts/staging-rehearsal.mjs",
+      "status": "PASS"
+    },
+    {
+      "check": "required:scripts/security-baseline-check.mjs",
+      "status": "PASS"
+    },
+    {
+      "check": "required:scripts/check-db-privileges.mjs",
+      "status": "PASS"
+    },
+    {
+      "check": "required:scripts/acceptance-gate.mjs",
+      "status": "PASS"
+    },
+    {
+      "check": "required:scripts/archive-ci-record.mjs",
+      "status": "PASS"
+    },
+    {
+      "check": "required:examples/approval-record.template.json",
+      "status": "PASS"
+    },
+    {
+      "check": "required:src/infrastructure/postgres-record-repository.js",
+      "status": "PASS"
+    },
+    {
+      "check": "required:src/infrastructure/sqlite-postgres-reconciliation.js",
+      "status": "PASS"
+    },
+    {
+      "check": "required:src/infrastructure/postgres-test-safety.js",
+      "status": "PASS"
+    },
+    {
+      "check": "required:src/migration-cutover-gate.js",
+      "status": "PASS"
+    },
+    {
+      "check": "required:test/postgres-real.integration.test.js",
+      "status": "PASS"
+    },
+    {
+      "check": "required:.github/workflows/ci.yml",
+      "status": "PASS"
+    },
+    {
+      "check": "required:docs/release/PREACCEPTANCE_CHECKLIST.md",
+      "status": "PASS"
+    },
+    {
+      "check": "javascript-syntax",
+      "status": "PASS",
+      "files": 65
+    },
+    {
+      "check": "step22-runtime-evidence",
+      "status": "PASS",
+      "checks": 15,
+      "targetPostgresVersion": "PostgreSQL 16.14",
+      "reconciliationMismatchCount": 0,
+      "cutoverGateDecision": "BLOCKED",
+      "note": "证据来自 artifacts/step22/RUNTIME_EVIDENCE.json；由 npm run evidence:step22 在隔离环境生成。"
+    },
+    {
+      "check": "step23-runtime-lifecycle",
+      "status": "PASS",
+      "checks": 12,
+      "serviceVersion": "0.25.0",
+      "note": "证据来自 artifacts/step23/RUNTIME_LIFECYCLE_EVIDENCE.json；由 npm run evidence:step23 在隔离环境生成。"
+    },
+    {
+      "check": "ci-local-equivalent",
+      "status": "PASS",
+      "validations": 16,
+      "ciPlatformRecord": false,
+      "note": "本地等价执行；ciPlatformRecord=false，不能替代 CI 平台记录。"
+    },
+    {
+      "check": "staging-rehearsal",
+      "status": "PASS",
+      "kind": "local-rehearsal",
+      "checks": 9,
+      "note": "kind=local-rehearsal；只有 kind=staging 才能被验收门禁接受。"
+    },
+    {
+      "check": "security-technical-controls",
+      "status": "PASS",
+      "checks": 26,
+      "humanReviewSigned": false,
+      "note": "自动化技术控制审查；不等于人工安全审查签署。"
+    },
+    {
+      "check": "acceptance-evidence-gate",
+      "status": "BLOCKED",
+      "blockingCount": 5,
+      "note": "外部验收证据门禁结果；BLOCKED 表示外部证据未齐，不代表本地代码检查失败。"
+    }
+  ],
+  "blockers": [
+    "验收证据：ci-platform-record: 缺少 artifacts/ci/CI_PLATFORM_RECORD.json（本地等价执行不能替代 CI 平台记录）",
+    "验收证据：staging-record: 证据 kind=staging-dry-run，必须是 staging",
+    "验收证据：security-review: 缺少人类安全审查记录（自动化基线审查不等于人工审查）",
+    "验收证据：human-approvals: 缺少 artifacts/acceptance/APPROVALS.json（需产品/安全/运维签署 + 独立批准）",
+    "验收证据：cutover-gate: 门禁未达可人工批准状态：数据库权限、TLS 与凭据审查未通过"
+  ],
+  "decision": "PASS",
+  "note": "本报告只记录本地可重复检查结果；外部证据门禁为 BLOCKED 时不得宣称验收通过。"
+}
+

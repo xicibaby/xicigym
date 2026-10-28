@@ -1,0 +1,45 @@
+{
+  "name": "health-exercise-skill-record-module-preacceptance",
+  "version": "0.25.0",
+  "private": true,
+  "type": "module",
+  "description": "Health Skill record module with selectable SQLite/PostgreSQL runtime, probes, metrics, security baseline, evidence-based acceptance gates and a human-action navigator",
+  "scripts": {
+    "test": "node --test",
+    "test:sqlite": "node --test test/sqlite-record-repository.test.js",
+    "start": "node src/server.js",
+    "db:maintenance": "node src/maintenance.js",
+    "test:postgres-adapter": "node --test test/postgres-record-repository.test.js",
+    "test:postgres-integration": "node --test test/postgres-real.integration.test.js",
+    "db:migrate:postgres": "node src/migrate-sqlite-to-postgres.js",
+    "test:migration-tool": "node --test test/sqlite-to-postgres-migration.test.js",
+    "db:reconcile:postgres": "node src/reconcile-sqlite-postgres.js",
+    "test:reconciliation": "node --test test/sqlite-postgres-reconciliation.test.js",
+    "gate:cutover": "node scripts/migration-cutover-gate.js",
+    "test:cutover-gate": "node --test test/migration-cutover-gate.test.js",
+    "gate:acceptance": "node scripts/acceptance-gate.mjs",
+    "action:next": "node scripts/next-human-action.mjs",
+    "check:syntax": "node scripts/preacceptance-check.js --syntax-only",
+    "preacceptance:check": "node scripts/preacceptance-check.js",
+    "test:preacceptance": "node --test test/preacceptance-check.test.js",
+    "test:runtime-config": "node --test test/runtime-config.test.js",
+    "evidence:step22": "node scripts/step22-runtime-evidence.mjs",
+    "evidence:step23": "node scripts/step23-runtime-evidence.mjs",
+    "evidence:ci-local": "node scripts/ci-local-evidence.mjs",
+    "evidence:staging-rehearsal": "node scripts/staging-rehearsal.mjs --environment=local-rehearsal",
+    "security:baseline": "node scripts/security-baseline-check.mjs",
+    "security:db-privileges": "node scripts/check-db-privileges.mjs",
+    "archive:ci-record": "node scripts/archive-ci-record.mjs",
+    "checksums:write": "node scripts/verify-checksums.mjs --write",
+    "checksums:verify": "node scripts/verify-checksums.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "pg": "8.16.3"
+  },
+  "devDependencies": {
+    "yaml": "^2.9.1"
+  }
+}

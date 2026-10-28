@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "step": 23,
+  "generatedAt": "2026-10-28T14:58:26.246Z",
+  "startedAt": "2026-10-28T14:58:25.980Z",
+  "allChecksPassed": true,
+  "serviceVersion": "0.25.0",
+  "checks": [
+    {
+      "name": "runtime-sqlite-listening",
+      "ok": true,
+      "detail": "port=63818, version=0.25.0"
+    },
+    {
+      "name": "healthz-liveness",
+      "ok": true,
+      "detail": "status=200 version=0.25.0 uptime=0s"
+    },
+    {
+      "name": "readyz-sqlite-ready",
+      "ok": true,
+      "detail": "backend=sqlite schemaVersion=1 latencyMs=0"
+    },
+    {
+      "name": "record-api-still-fails-closed",
+      "ok": true,
+      "detail": "status=401"
+    },
+    {
+      "name": "probe-head-and-404",
+      "ok": true,
+      "detail": "head=200 unknown=404"
+    },
+    {
+      "name": "metrics-exposition",
+      "ok": true,
+      "detail": "contentType=text/plain; version=0.0.4; charset=utf-8 counters=true inFlight=true readyGauge=true leaks=false"
+    },
+    {
+      "name": "graceful-shutdown-sqlite",
+      "ok": true,
+      "detail": "closed=true timedOut=false durationMs=2 idempotent=true"
+    },
+    {
+      "name": "readyz-postgres-ready",
+      "ok": true,
+      "detail": "backend=postgres schemaVersion=1 latencyMs=1"
+    },
+    {
+      "name": "healthz-postgres-liveness",
+      "ok": true,
+      "detail": "status=200"
+    },
+    {
+      "name": "readiness-detects-database-outage",
+      "ok": true,
+      "detail": "readyz=503(postgres_unavailable) healthz=200"
+    },
+    {
+      "name": "metrics-readiness-gauge-drops",
+      "ok": true,
+      "detail": "health_skill_ready 0"
+    },
+    {
+      "name": "graceful-shutdown-postgres-after-outage",
+      "ok": true,
+      "detail": "closed=true timedOut=false resourceCloseFailures=0"
+    }
+  ],
+  "probes": {
+    "liveness": "/healthz",
+    "readiness": "/readyz",
+    "metrics": "/metrics",
+    "authentication": "none",
+    "note": "探针按设计不鉴权；应部署在私有网络或网关白名单后。"
+  },
+  "sqliteRuntime": {
+    "port": 63818,
+    "shutdown": {
+      "closed": true,
+      "timedOut": false,
+      "durationMs": 2,
+      "resourceCloseFailures": []
+    }
+  },
+  "postgresRuntime": {
+    "port": 63822,
+    "targetPostgresVersion": "PostgreSQL 16.14",
+    "shutdown": {
+      "closed": true,
+      "timedOut": false,
+      "durationMs": 0,
+      "resourceCloseFailures": []
+    },
+    "outageSimulation": "运行期关闭连接池，/readyz 返回 503，/healthz 保持 200。"
+  },
+  "environment": {
+    "kind": "local-isolated-runtime",
+    "nodeVersion": "v24.21.0",
+    "disposableDatabase": true,
+    "productionTrafficSwitched": false
+  },
+  "limitations": [
+    "本证据来自本地隔离运行时，不是 staging/生产环境，也不构成验收通过。",
+    "指标为单进程内存聚合，多实例部署需要网关/共享指标系统汇总。",
+    "未实现告警规则、仪表盘、分布式追踪与负载压测。",
+    "探针端点无鉴权，必须通过私有网络或网关白名单限制访问。"
+  ]
+}

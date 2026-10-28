@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-28T14:58:41.695Z",
+  "check": "postgres-least-privilege",
+  "database": "health_skill_test",
+  "role": "health_skill_app",
+  "pass": true,
+  "failedChecks": [],
+  "checks": [
+    {
+      "name": "role-logon",
+      "ok": true,
+      "detail": "role can log in"
+    },
+    {
+      "name": "not-superuser",
+      "ok": true,
+      "detail": "rolsuper"
+    },
+    {
+      "name": "no-createdb",
+      "ok": true,
+      "detail": "rolcreatedb"
+    },
+    {
+      "name": "no-createrole",
+      "ok": true,
+      "detail": "rolcreaterole"
+    },
+    {
+      "name": "no-bypassrls",
+      "ok": true,
+      "detail": "rolbypassrls"
+    },
+    {
+      "name": "no-replication",
+      "ok": true,
+      "detail": "rolreplication"
+    },
+    {
+      "name": "expected-tables-present",
+      "ok": true,
+      "detail": "records, record_revisions, idempotency_results found"
+    },
+    {
+      "name": "does-not-own-tables",
+      "ok": true,
+      "detail": "role does not own application tables"
+    },
+    {
+      "name": "table-privileges:records",
+      "ok": true,
+      "detail": "SELECT, INSERT, UPDATE, DELETE"
+    },
+    {
+      "name": "no-destructive-privileges:records",
+      "ok": true,
+      "detail": "no TRUNCATE/REFERENCES/TRIGGER"
+    },
+    {
+      "name": "table-privileges:record_revisions",
+      "ok": true,
+      "detail": "SELECT, INSERT, UPDATE, DELETE"
+    },
+    {
+      "name": "no-destructive-privileges:record_revisions",
+      "ok": true,
+      "detail": "no TRUNCATE/REFERENCES/TRIGGER"
+    },
+    {
+      "name": "table-privileges:idempotency_results",
+      "ok": true,
+      "detail": "SELECT, INSERT, UPDATE, DELETE"
+    },
+    {
+      "name": "no-destructive-privileges:idempotency_results",
+      "ok": true,
+      "detail": "no TRUNCATE/REFERENCES/TRIGGER"
+    },
+    {
+      "name": "schema-usage",
+      "ok": true,
+      "detail": "USAGE on schema public"
+    },
+    {
+      "name": "readiness-can-read-schema-version",
+      "ok": true,
+      "detail": "SELECT on schema_migrations (readiness probe)"
+    },
+    {
+      "name": "cannot-create-tables",
+      "ok": true,
+      "detail": "rejected with SQLSTATE 42501"
+    },
+    {
+      "name": "cannot-alter-tables",
+      "ok": true,
+      "detail": "rejected with SQLSTATE 42501"
+    },
+    {
+      "name": "cannot-drop-tables",
+      "ok": true,
+      "detail": "rejected with SQLSTATE 42501"
+    },
+    {
+      "name": "cannot-truncate-records",
+      "ok": true,
+      "detail": "rejected with SQLSTATE 42501"
+    },
+    {
+      "name": "can-read-records",
+      "ok": true,
+      "detail": "SELECT count succeeded (0)"
+    }
+  ],
+  "note": "只读检查；所有 DDL 尝试都在事务中回滚并被 PostgreSQL 拒绝。不输出连接串或密码。"
+}

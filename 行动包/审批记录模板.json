@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "project": "health-exercise-skill-record-module",
+  "release": {
+    "version": "<0.25.0 或本次发布版本>",
+    "commit": "<40 位 commit sha>",
+    "evidenceBundle": "<交付包文件名 + SHA256>",
+    "date": "<YYYY-MM-DD>"
+  },
+  "approvals": [
+    {
+      "role": "product",
+      "name": "<第 1 位：产品负责人真实姓名>",
+      "title": "<职务>",
+      "decision": "approved",
+      "signedAt": "<ISO-8601 带时区>",
+      "notes": "<确认的用户价值与范围>"
+    },
+    {
+      "role": "security",
+      "name": "<第 2 位：安全负责人真实姓名，不得与上一位相同>",
+      "title": "<职务>",
+      "decision": "approved",
+      "signedAt": "<ISO-8601 带时区>",
+      "notes": "<引用 HUMAN_SECURITY_REVIEW.json 的结论>"
+    },
+    {
+      "role": "operations",
+      "name": "<第 3 位：运维负责人真实姓名>",
+      "title": "<职务>",
+      "decision": "approved",
+      "signedAt": "<ISO-8601 带时区>",
+      "notes": "<上线窗口、观察期与回滚方案>"
+    }
+  ],
+  "independentApproval": {
+    "required": true,
+    "name": "<第 4 位：独立审批人真实姓名，须为不同的人>",
+    "title": "<职务>",
+    "decision": "approved",
+    "signedAt": "<ISO-8601 带时区>",
+    "notes": "<独立审批意见>"
+  },
+  "author": {
+    "name": "<交付作者姓名，用于禁止自批检查>"
+  },
+  "ciPlatformRecord": {
+    "runUrl": "<CI 运行链接>",
+    "commit": "<commit sha>",
+    "status": "success",
+    "recordedAt": "<ISO-8601 带时区>"
+  },
+  "stagingRecord": {
+    "environment": "<staging 环境名>",
+    "operator": "<staging 演练执行人>",
+    "executedAt": "<ISO-8601 带时区>",
+    "evidence": "artifacts/staging-rehearsal/STAGING_REHEARSAL_EVIDENCE.json"
+  }
+}

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>健康运动 Skill｜记录确认卡原型</title>
+  <style>
+    :root { color-scheme: light; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #202124; background: #f6f7f8; }
+    body { margin: 0; padding: 28px 16px; } main { max-width: 620px; margin: auto; }
+    h1 { font-size: 22px; margin: 0 0 8px; } .muted { color: #6b7280; font-size: 14px; line-height: 1.5; }
+    .card { margin-top: 20px; padding: 20px; border: 1px solid #e5e7eb; border-radius: 18px; background: white; box-shadow: 0 6px 24px #11111108; }
+    .tag { display: inline-block; border-radius: 999px; background: #f1f3f5; padding: 5px 10px; font-size: 12px; margin-bottom: 12px; }
+    label { display: block; font-size: 13px; color: #555; margin: 14px 0 6px; }
+    input, textarea { box-sizing: border-box; width: 100%; border: 1px solid #d9dde2; border-radius: 10px; padding: 11px 12px; font: inherit; background: white; }
+    textarea { min-height: 78px; resize: vertical; } .row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+    button { border: 0; border-radius: 11px; padding: 11px 15px; font: inherit; cursor: pointer; }
+    .primary { background: #202124; color: white; } .secondary { background: #eef0f2; color: #202124; }
+    #status { margin-top: 14px; font-size: 14px; min-height: 20px; } .warning { font-size: 12px; color: #6b7280; margin-top: 16px; }
+    @media (prefers-reduced-motion: no-preference) { button { transition: background-color .15s ease, transform .15s ease; } button:active { transform: scale(.98); } }
+  </style>
+</head>
+<body><main>
+  <h1>确认这条记录</h1>
+  <p class="muted">保存前核对识别或输入的内容。估算值会单独标明；确认后仍可修订。</p>
+  <section class="card" aria-label="记录确认卡">
+    <span class="tag" id="state">草稿 · 待确认</span>
+    <label for="meal">记录类型</label><input id="meal" value="午餐" readonly>
+    <label for="description">记录内容</label><textarea id="description">鸡蛋、米饭和青菜</textarea>
+    <label for="estimate">估算信息（可编辑）</label><input id="estimate" value="热量暂未估算" aria-describedby="estimate-help">
+    <p class="muted" id="estimate-help">未计算的营养值不会自动填入。若填写估算，请同时说明依据。</p>
+    <div class="row"><button class="secondary" id="reset">撤销本次编辑</button><button class="primary" id="confirm">确认并保存（原型）</button></div>
+    <div id="status" role="status" aria-live="polite"></div>
+    <p class="warning">原型说明：数据仅保存在当前页面内存中，刷新后清空；不连接账户、云端或数据库。</p>
+  </section>
+</main>
+<script>
+  const description = document.querySelector('#description');
+  const estimate = document.querySelector('#estimate');
+  const status = document.querySelector('#status');
+  const original = { description: description.value, estimate: estimate.value };
+  let saved = false;
+  document.querySelector('#reset').addEventListener('click', () => {
+    if (saved) { status.textContent = '该原型记录已确认；如需修改，请进入修订流程。'; return; }
+    description.value = original.description; estimate.value = original.estimate;
+    status.textContent = '已撤销本次编辑。';
+  });
+  document.querySelector('#confirm').addEventListener('click', () => {
+    if (saved) { status.textContent = '这条记录已确认，重复点击不会重复保存。'; return; }
+    if (!description.value.trim()) { status.textContent = '请先填写记录内容。'; description.focus(); return; }
+    if (/估算|约|大约/.test(estimate.value) && estimate.value.trim() === '热量暂未估算') {
+      status.textContent = '尚未提供估算数值，系统不会自动补值。'; return;
+    }
+    saved = true;
+    document.querySelector('#state').textContent = '原型 · 已确认';
+    document.querySelector('#confirm').textContent = '已确认';
+    document.querySelector('#confirm').disabled = true;
+    status.textContent = '已在当前页面原型状态中确认。正式持久化尚未接入。';
+  });
+</script>
+</body></html>

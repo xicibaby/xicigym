@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "kind": "staging-dry-run",
+  "generatedAt": "2026-10-28T14:56:29.737Z",
+  "allChecksPassed": true,
+  "serviceVersion": "0.25.0",
+  "dryRun": true,
+  "environment": {
+    "baseUrl": "http://127.0.0.1:3210",
+    "operator": "dry-run-operator",
+    "postgresVersion": "PostgreSQL 16.14",
+    "nodeVersion": "v24.21.0",
+    "disposableDatabase": false,
+    "dryRunNote": "本地预演：验证 staging 剧本代码路径，不是 staging 环境证据。"
+  },
+  "checks": [
+    {
+      "name": "staging-healthz",
+      "ok": true,
+      "detail": "status=200"
+    },
+    {
+      "name": "staging-readyz",
+      "ok": true,
+      "detail": "status=200 backend=postgres"
+    },
+    {
+      "name": "staging-metrics",
+      "ok": true,
+      "detail": "status=200"
+    },
+    {
+      "name": "staging-migration-dry-run",
+      "ok": true,
+      "detail": "{\"records\":3,\"revisions\":6,\"idempotency\":2}"
+    },
+    {
+      "name": "staging-migration-apply",
+      "ok": true,
+      "detail": "inserted={\"records\":3,\"revisions\":6,\"idempotency\":2}"
+    },
+    {
+      "name": "staging-reconciliation-zero-diff",
+      "ok": true,
+      "detail": "mismatchCount=0"
+    }
+  ],
+  "migrationApplied": true,
+  "note": "staging 剧本本地预演（kind=staging-dry-run）；验收门禁明确不接受该 kind 作为 staging 证据。"
+}

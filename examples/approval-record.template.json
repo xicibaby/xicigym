@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "project": "health-exercise-skill-record-module",
+  "release": {
+    "version": "0.24.0",
+    "commit": "<git-sha-or-handoff-archive-id>",
+    "evidenceBundle": "<handoff zip name and SHA256>",
+    "date": "<YYYY-MM-DD>"
+  },
+  "approvals": [
+    {
+      "role": "product",
+      "name": "<real reviewer name>",
+      "title": "<product owner title>",
+      "decision": "approved",
+      "signedAt": "<ISO-8601 timestamp with timezone>",
+      "notes": "<scope of what was confirmed>"
+    },
+    {
+      "role": "security",
+      "name": "<real reviewer name>",
+      "title": "<security lead title>",
+      "decision": "approved",
+      "signedAt": "<ISO-8601 timestamp with timezone>",
+      "notes": "<controls reviewed; reference SECURITY_REVIEW_PREP.md>"
+    },
+    {
+      "role": "operations",
+      "name": "<real reviewer name>",
+      "title": "<operations/SRE title>",
+      "decision": "approved",
+      "signedAt": "<ISO-8601 timestamp with timezone>",
+      "notes": "<deployment, rollback and on-call readiness>"
+    }
+  ],
+  "independentApproval": {
+    "required": true,
+    "name": "<different person, not one of the three above>",
+    "title": "<independent approver title>",
+    "decision": "approved",
+    "signedAt": "<ISO-8601 timestamp with timezone>",
+    "notes": "<independent change approval for the migration cutover>"
+  },
+  "securityReview": {
+    "signed": false,
+    "reviewedAt": "<ISO-8601 timestamp with timezone>",
+    "reviewer": "<security reviewer name>",
+    "scope": ["tls", "least-privilege", "secrets", "backup-encryption", "probe-exposure", "logging"]
+  },
+  "ciPlatformRecord": {
+    "runUrl": "<https://github.com/.../actions/runs/...>",
+    "commit": "<sha>",
+    "status": "success",
+    "recordedAt": "<ISO-8601 timestamp with timezone>"
+  },
+  "stagingRecord": {
+    "environment": "<staging environment name>",
+    "operator": "<operator name>",
+    "executedAt": "<ISO-8601 timestamp with timezone>",
+    "evidence": "artifacts/staging-rehearsal/STAGING_REHEARSAL_EVIDENCE.json"
+  }
+}

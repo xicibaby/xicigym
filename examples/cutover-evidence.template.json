@@ -1,0 +1,16 @@
+{
+  "automatedTestsPassed": false,
+  "realPostgresIntegrationPassed": false,
+  "backupVerified": false,
+  "restoreDrillPassed": false,
+  "sourceWriteFreezeConfirmed": false,
+  "rollbackPlanVerified": false,
+  "securityReviewPassed": false,
+  "reconciliation": {
+    "match": false,
+    "mismatchCount": null
+  },
+  "targetPostgresVersion": "",
+  "reportPath": "",
+  "approvedBy": ""
+}

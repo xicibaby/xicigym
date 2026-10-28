@@ -1,0 +1,56 @@
+name: record-module-ci
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+# Least privilege: the workflow only needs to read the repository.
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unit-and-postgres-integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: health_skill_test
+          POSTGRES_USER: health_skill_test
+          POSTGRES_PASSWORD: local-test-only
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U health_skill_test -d health_skill_test"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 20
+    env:
+      NODE_ENV: test
+      POSTGRES_TEST_URL: postgres://health_skill_test:local-test-only@127.0.0.1:5432/health_skill_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install locked dependencies
+        # package-lock.json is committed, so install exactly the reviewed tree.
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Check JavaScript syntax
+        run: npm run check:syntax
+      - name: Run complete suite including real PostgreSQL integration
+        run: npm test
+      - name: Archive test output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-output
+          path: artifacts/
+          if-no-files-found: ignore

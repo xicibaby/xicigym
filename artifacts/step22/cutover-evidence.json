@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-28T14:58:25.841Z",
+  "automatedTestsPassed": true,
+  "realPostgresIntegrationPassed": true,
+  "backupVerified": true,
+  "restoreDrillPassed": true,
+  "sourceWriteFreezeConfirmed": true,
+  "rollbackPlanVerified": true,
+  "securityReviewPassed": false,
+  "reconciliation": {
+    "match": true,
+    "mismatchCount": 0
+  },
+  "targetPostgresVersion": "PostgreSQL 16.14",
+  "reportPath": "artifacts/step22/STEP22_EVIDENCE_REPORT.md",
+  "drillEnvironment": {
+    "kind": "local-isolated-portable-postgresql",
+    "port": 55432,
+    "disposableDatabase": true,
+    "note": "本地便携版 PostgreSQL 16，仅 127.0.0.1 监听，用于演练；不是 staging/生产环境。"
+  },
+  "sourceWriteFreezeNote": "演练期间由脚本自身持有源 SQLite，无外部写入；正式切换仍需运维停写窗口。",
+  "rollbackNote": "已执行运行时回切 SQLite 演练；正式回滚仍需要运维按 runbook 人工确认。",
+  "limitations": [
+    "securityReviewPassed=false：TLS、最小权限账号、秘密管理与备份加密尚未经安全负责人审查。",
+    "本证据来自本地隔离环境，不替代 CI 平台记录与独立 staging 环境。",
+    "最终切换仍需产品/安全/运维负责人签署与独立人员批准。"
+  ]
+}

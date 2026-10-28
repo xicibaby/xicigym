@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-28T14:58:41.812Z",
+  "decision": "BLOCKED",
+  "blockingCount": 5,
+  "blockers": [
+    "ci-platform-record: 缺少 artifacts/ci/CI_PLATFORM_RECORD.json（本地等价执行不能替代 CI 平台记录）",
+    "staging-record: 证据 kind=local-rehearsal，必须是 staging",
+    "security-review: 缺少人类安全审查记录（自动化基线审查不等于人工审查）",
+    "human-approvals: 缺少 artifacts/acceptance/APPROVALS.json（需产品/安全/运维签署 + 独立批准）",
+    "cutover-gate: 门禁未达可人工批准状态：数据库权限、TLS 与凭据审查未通过"
+  ],
+  "items": [
+    {
+      "item": "ci-platform-record",
+      "status": "MISSING",
+      "detail": "缺少 artifacts/ci/CI_PLATFORM_RECORD.json（本地等价执行不能替代 CI 平台记录）"
+    },
+    {
+      "item": "staging-record",
+      "status": "INVALID",
+      "detail": "证据 kind=local-rehearsal，必须是 staging"
+    },
+    {
+      "item": "security-review",
+      "status": "MISSING",
+      "detail": "缺少人类安全审查记录（自动化基线审查不等于人工审查）"
+    },
+    {
+      "item": "human-approvals",
+      "status": "MISSING",
+      "detail": "缺少 artifacts/acceptance/APPROVALS.json（需产品/安全/运维签署 + 独立批准）"
+    },
+    {
+      "item": "cutover-gate",
+      "status": "INVALID",
+      "detail": "门禁未达可人工批准状态：数据库权限、TLS 与凭据审查未通过"
+    }
+  ],
+  "supporting": {
+    "item": "supporting-local-evidence",
+    "status": "PASS",
+    "detail": "本地等价 CI=通过；安全技术控制=通过（仅支撑材料，不解除阻塞）",
+    "blocking": false
+  },
+  "note": "该门禁只检查外部证据是否齐全、新鲜、非占位、非自批；通过后仍需人工最终复核与独立批准，不会自动切换流量。",
+  "maxEvidenceAgeDays": 30,
+  "evidenceDir": "artifacts"
+}

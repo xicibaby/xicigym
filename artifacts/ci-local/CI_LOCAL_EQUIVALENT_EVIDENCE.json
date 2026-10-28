@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "kind": "local-equivalent-ci",
+  "generatedAt": "2026-10-28T14:58:40.914Z",
+  "allValidationsPassed": true,
+  "ciPlatformRecord": false,
+  "workflow": {
+    "path": ".github/workflows/ci.yml",
+    "sha256": "72f21a2e97c816dde2182841a1d265a75468ae98e86abe6265627700a19a0bf3",
+    "nodeVersion": 22,
+    "runner": "ubuntu-latest",
+    "postgresImage": "postgres:16-alpine",
+    "permissions": {
+      "contents": "read"
+    }
+  },
+  "validations": [
+    {
+      "name": "workflow-yaml-parses",
+      "ok": true,
+      "detail": "sha256=72f21a2e97c8…"
+    },
+    {
+      "name": "workflow-triggers",
+      "ok": true,
+      "detail": "push, pull_request, workflow_dispatch"
+    },
+    {
+      "name": "job-present",
+      "ok": true,
+      "detail": "unit-and-postgres-integration"
+    },
+    {
+      "name": "job-runner-and-timeout",
+      "ok": true,
+      "detail": "ubuntu-latest timeout=15m"
+    },
+    {
+      "name": "postgres16-service",
+      "ok": true,
+      "detail": "image=postgres:16-alpine healthcheck=true"
+    },
+    {
+      "name": "test-environment-env",
+      "ok": true,
+      "detail": "NODE_ENV=test + POSTGRES_TEST_URL"
+    },
+    {
+      "name": "least-privilege-token",
+      "ok": true,
+      "detail": "{\"contents\":\"read\"}"
+    },
+    {
+      "name": "no-pull-request-target",
+      "ok": true,
+      "detail": "no pull_request_target trigger"
+    },
+    {
+      "name": "no-secret-echo",
+      "ok": true,
+      "detail": "no secret values printed by run steps"
+    },
+    {
+      "name": "setup-node-22",
+      "ok": true,
+      "detail": "node 22 cache=npm"
+    },
+    {
+      "name": "uses-locked-install",
+      "ok": true,
+      "detail": "npm ci --ignore-scripts --no-audit --no-fund"
+    },
+    {
+      "name": "workflow-scripts-exist",
+      "ok": true,
+      "detail": "check:syntax"
+    },
+    {
+      "name": "runs-syntax-and-tests",
+      "ok": true,
+      "detail": "scripts=check:syntax + npm test"
+    },
+    {
+      "name": "local-postgres-reachable",
+      "ok": true,
+      "detail": "PostgreSQL 16.14"
+    },
+    {
+      "name": "local-step:Check JavaScript syntax",
+      "ok": true,
+      "detail": "exit=0 durationMs=4423 output=artifacts\\ci-local\\LOCAL_SYNTAX_OUTPUT.txt"
+    },
+    {
+      "name": "local-step:Run complete suite including real PostgreSQL integration",
+      "ok": true,
+      "detail": "exit=0 durationMs=5148 output=artifacts\\ci-local\\LOCAL_TEST_OUTPUT.txt"
+    }
+  ],
+  "executed": [
+    {
+      "workflowStep": "Check JavaScript syntax",
+      "localCommand": "node scripts/preacceptance-check.js --syntax-only",
+      "exitCode": 0,
+      "durationMs": 4423
+    },
+    {
+      "workflowStep": "Run complete suite including real PostgreSQL integration",
+      "localCommand": "node --test",
+      "exitCode": 0,
+      "durationMs": 5148
+    }
+  ],
+  "environment": {
+    "nodeVersion": "v24.21.0",
+    "platform": "win32/x64",
+    "postgresVersion": "PostgreSQL 16.14"
+  },
+  "note": "本地等价执行：结构与命令按 ci.yml 校验并在本机重放；它不是 GitHub Actions 记录，不能替代 CI 平台证据。",
+  "limitations": [
+    "未在 GitHub Actions 平台执行；workflow 文件与本地重放不等于 CI 通过记录。",
+    "本地 PostgreSQL 为便携版 16.x（与 CI 的 postgres:16-alpine 同大版本但镜像不同）。"
+  ]
+}

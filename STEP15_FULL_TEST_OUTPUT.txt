@@ -1,0 +1,488 @@
+TAP version 13
+# Subtest: security headers are applied to API responses
+ok 1 - security headers are applied to API responses
+  ---
+  duration_ms: 22.471785
+  type: 'test'
+  ...
+# Subtest: CORS allows only explicitly configured origins
+ok 2 - CORS allows only explicitly configured origins
+  ---
+  duration_ms: 10.588899
+  type: 'test'
+  ...
+# Subtest: JSON write endpoints reject missing or unsupported content type
+ok 3 - JSON write endpoints reject missing or unsupported content type
+  ---
+  duration_ms: 11.929887
+  type: 'test'
+  ...
+# Subtest: authenticated requests are rate limited and return Retry-After
+ok 4 - authenticated requests are rate limited and return Retry-After
+  ---
+  duration_ms: 8.104432
+  type: 'test'
+  ...
+# Subtest: OIDC verifier accepts a correctly signed token and namespaces subject by issuer
+ok 5 - OIDC verifier accepts a correctly signed token and namespaces subject by issuer
+  ---
+  duration_ms: 25.738308
+  type: 'test'
+  ...
+# Subtest: OIDC verifier rejects missing authorization and malformed token
+ok 6 - OIDC verifier rejects missing authorization and malformed token
+  ---
+  duration_ms: 1.742571
+  type: 'test'
+  ...
+# Subtest: OIDC verifier rejects wrong issuer, audience and expired tokens
+ok 7 - OIDC verifier rejects wrong issuer, audience and expired tokens
+  ---
+  duration_ms: 7.096365
+  type: 'test'
+  ...
+# Subtest: OIDC verifier rejects non-RS256 algorithms even if token has a valid RS256 signature
+ok 8 - OIDC verifier rejects non-RS256 algorithms even if token has a valid RS256 signature
+  ---
+  duration_ms: 0.912052
+  type: 'test'
+  ...
+# Subtest: OIDC verifier requires HTTPS JWKS outside explicit tests
+ok 9 - OIDC verifier requires HTTPS JWKS outside explicit tests
+  ---
+  duration_ms: 0.400142
+  type: 'test'
+  ...
+# Subtest: OIDC verifier rejects missing subject and invalid not-before claims
+ok 10 - OIDC verifier rejects missing subject and invalid not-before claims
+  ---
+  duration_ms: 6.628492
+  type: 'test'
+  ...
+# Subtest: OIDC verifier throttles forced JWKS refreshes for unknown kid values
+ok 11 - OIDC verifier throttles forced JWKS refreshes for unknown kid values
+  ---
+  duration_ms: 7.860785
+  type: 'test'
+  ...
+# Subtest: OIDC verifier rejects oversized JWKS responses and forbids redirects
+ok 12 - OIDC verifier rejects oversized JWKS responses and forbids redirects
+  ---
+  duration_ms: 3.007785
+  type: 'test'
+  ...
+# (node:1643) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: end-to-end OIDC -> HTTP API -> SQLite: ownership, confirmation, history and persistence
+ok 13 - end-to-end OIDC -> HTTP API -> SQLite: ownership, confirmation, history and persistence
+  ---
+  duration_ms: 61.611804
+  type: 'test'
+  ...
+# Subtest: REAL PostgreSQL: migrations, JSONB, optimistic locking, history, idempotency and ownership guards
+ok 14 - REAL PostgreSQL: migrations, JSONB, optimistic locking, history, idempotency and ownership guards # SKIP Set POSTGRES_TEST_URL to a disposable PostgreSQL test database.
+  ---
+  duration_ms: 0.489246
+  type: 'test'
+  ...
+# Subtest: PostgreSQL adapter satisfies shared repository contract and requires a pool
+ok 15 - PostgreSQL adapter satisfies shared repository contract and requires a pool
+  ---
+  duration_ms: 1.118763
+  type: 'test'
+  ...
+# Subtest: PostgreSQL insert writes record and first revision in one transaction
+ok 16 - PostgreSQL insert writes record and first revision in one transaction
+  ---
+  duration_ms: 0.954376
+  type: 'test'
+  ...
+# Subtest: PostgreSQL stale replace rolls back and does not write a revision
+ok 17 - PostgreSQL stale replace rolls back and does not write a revision
+  ---
+  duration_ms: 0.444038
+  type: 'test'
+  ...
+# Subtest: PostgreSQL confirmation commits record, history and idempotency result together
+ok 18 - PostgreSQL confirmation commits record, history and idempotency result together
+  ---
+  duration_ms: 0.427132
+  type: 'test'
+  ...
+# Subtest: PostgreSQL confirmation replays a prior idempotency result without mutating record
+ok 19 - PostgreSQL confirmation replays a prior idempotency result without mutating record
+  ---
+  duration_ms: 0.268644
+  type: 'test'
+  ...
+# Subtest: PostgreSQL migration runner uses advisory lock and applies versioned schema atomically
+ok 20 - PostgreSQL migration runner uses advisory lock and applies versioned schema atomically
+  ---
+  duration_ms: 0.985843
+  type: 'test'
+  ...
+# Subtest: PostgreSQL migration runner refuses unsupported future schema and rolls back
+ok 21 - PostgreSQL migration runner refuses unsupported future schema and rolls back
+  ---
+  duration_ms: 0.230146
+  type: 'test'
+  ...
+# Subtest: injected pool lifecycle is caller-owned by default and only ends when explicitly requested
+ok 22 - injected pool lifecycle is caller-owned by default and only ends when explicitly requested
+  ---
+  duration_ms: 0.158559
+  type: 'test'
+  ...
+# Subtest: replace enforces immutable user ownership in SQL and does not rewrite user_id
+ok 23 - replace enforces immutable user ownership in SQL and does not rewrite user_id
+  ---
+  duration_ms: 0.427944
+  type: 'test'
+  ...
+# Subtest: confirmation checks user ownership before updating and scopes update by user_id
+ok 24 - confirmation checks user ownership before updating and scopes update by user_id
+  ---
+  duration_ms: 0.483818
+  type: 'test'
+  ...
+# Subtest: list count rejects unsafe integer values instead of silently rounding
+ok 25 - list count rejects unsafe integer values instead of silently rounding
+  ---
+  duration_ms: 0.295194
+  type: 'test'
+  ...
+# Subtest: migration runner rejects gaps in the applied migration history
+ok 26 - migration runner rejects gaps in the applied migration history
+  ---
+  duration_ms: 0.17293
+  type: 'test'
+  ...
+# Subtest: accepts a valid draft and preserves user-provided fields
+ok 27 - accepts a valid draft and preserves user-provided fields
+  ---
+  duration_ms: 1.261748
+  type: 'test'
+  ...
+# Subtest: rejects unsupported record type
+ok 28 - rejects unsupported record type
+  ---
+  duration_ms: 0.193952
+  type: 'test'
+  ...
+# Subtest: rejects estimated values without a reason
+ok 29 - rejects estimated values without a reason
+  ---
+  duration_ms: 0.194332
+  type: 'test'
+  ...
+# Subtest: rejects datetimes without timezone
+ok 30 - rejects datetimes without timezone
+  ---
+  duration_ms: 0.319711
+  type: 'test'
+  ...
+# Subtest: does not auto-fill absent payload/evidence
+ok 31 - does not auto-fill absent payload/evidence
+  ---
+  duration_ms: 0.251158
+  type: 'test'
+  ...
+# Subtest: rejects a non-null value marked as missing
+ok 32 - rejects a non-null value marked as missing
+  ---
+  duration_ms: 0.262334
+  type: 'test'
+  ...
+# Subtest: unauthenticated request receives 401
+ok 33 - unauthenticated request receives 401
+  ---
+  duration_ms: 23.122664
+  type: 'test'
+  ...
+# Subtest: POST creates record under authenticated identity, not body userId
+ok 34 - POST creates record under authenticated identity, not body userId
+  ---
+  duration_ms: 8.099645
+  type: 'test'
+  ...
+# Subtest: foreign user cannot read guessed record ID
+ok 35 - foreign user cannot read guessed record ID
+  ---
+  duration_ms: 6.515331
+  type: 'test'
+  ...
+# Subtest: client cannot patch protected ownership/state fields
+ok 36 - client cannot patch protected ownership/state fields
+  ---
+  duration_ms: 5.877852
+  type: 'test'
+  ...
+# Subtest: invalid expected revision returns 400
+ok 37 - invalid expected revision returns 400
+  ---
+  duration_ms: 6.152025
+  type: 'test'
+  ...
+# Subtest: GET /v1/records returns only the authenticated user records with pagination
+ok 38 - GET /v1/records returns only the authenticated user records with pagination
+  ---
+  duration_ms: 17.864744
+  type: 'test'
+  ...
+# Subtest: GET /v1/records rejects invalid pagination and filters
+ok 39 - GET /v1/records rejects invalid pagination and filters
+  ---
+  duration_ms: 4.861803
+  type: 'test'
+  ...
+# Subtest: accepts complete payloads for all five record types
+ok 40 - accepts complete payloads for all five record types
+  ---
+  duration_ms: 2.291878
+  type: 'test'
+  ...
+# Subtest: allows an empty partial payload while a draft is being filled
+ok 41 - allows an empty partial payload while a draft is being filled
+  ---
+  duration_ms: 0.291819
+  type: 'test'
+  ...
+# Subtest: requires meaningful content when confirming each record type
+ok 42 - requires meaningful content when confirming each record type
+  ---
+  duration_ms: 0.208363
+  type: 'test'
+  ...
+# Subtest: rejects invalid nutrition amounts and unknown food fields
+ok 43 - rejects invalid nutrition amounts and unknown food fields
+  ---
+  duration_ms: 0.135013
+  type: 'test'
+  ...
+# Subtest: rejects out-of-range body check-in values
+ok 44 - rejects out-of-range body check-in values
+  ---
+  duration_ms: 0.204257
+  type: 'test'
+  ...
+# Subtest: rejects diagnostic conclusions in posture payloads
+ok 45 - rejects diagnostic conclusions in posture payloads
+  ---
+  duration_ms: 0.201854
+  type: 'test'
+  ...
+# Subtest: rejects malformed exercise sets and activity duration
+ok 46 - rejects malformed exercise sets and activity duration
+  ---
+  duration_ms: 0.142455
+  type: 'test'
+  ...
+# (node:1709) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: in-memory and SQLite adapters satisfy the shared repository port
+ok 47 - in-memory and SQLite adapters satisfy the shared repository port
+  ---
+  duration_ms: 1.923895
+  type: 'test'
+  ...
+# Subtest: repository contract rejects incomplete adapters with actionable method names
+ok 48 - repository contract rejects incomplete adapters with actionable method names
+  ---
+  duration_ms: 0.17919
+  type: 'test'
+  ...
+# Subtest: creates, reads, and edits a draft with optimistic revision checks
+ok 49 - creates, reads, and edits a draft with optimistic revision checks
+  ---
+  duration_ms: 2.290396
+  type: 'test'
+  ...
+# Subtest: confirm is idempotent and cannot be used across record IDs
+ok 50 - confirm is idempotent and cannot be used across record IDs
+  ---
+  duration_ms: 0.543438
+  type: 'test'
+  ...
+# Subtest: confirmed records require correction workflow, and revision history is preserved
+ok 51 - confirmed records require correction workflow, and revision history is preserved
+  ---
+  duration_ms: 0.680353
+  type: 'test'
+  ...
+# Subtest: restores a prior snapshot as a new revision instead of deleting history
+ok 52 - restores a prior snapshot as a new revision instead of deleting history
+  ---
+  duration_ms: 0.497949
+  type: 'test'
+  ...
+# Subtest: allows a partial draft but refuses confirmation until record-type minimum content exists
+ok 53 - allows a partial draft but refuses confirmation until record-type minimum content exists
+  ---
+  duration_ms: 0.884521
+  type: 'test'
+  ...
+# Subtest: concurrent draft edits with the same expected revision allow only one winner
+ok 54 - concurrent draft edits with the same expected revision allow only one winner
+  ---
+  duration_ms: 0.391048
+  type: 'test'
+  ...
+# Subtest: runtime config parses safe defaults and deduplicates CORS origins
+ok 55 - runtime config parses safe defaults and deduplicates CORS origins
+  ---
+  duration_ms: 1.21626
+  type: 'test'
+  ...
+# Subtest: runtime config requires identity and persistent storage settings
+ok 56 - runtime config requires identity and persistent storage settings
+  ---
+  duration_ms: 0.356737
+  type: 'test'
+  ...
+# Subtest: production requires HTTPS issuer, JWKS, explicit HTTPS CORS and persistent database
+ok 57 - production requires HTTPS issuer, JWKS, explicit HTTPS CORS and persistent database
+  ---
+  duration_ms: 1.06347
+  type: 'test'
+  ...
+# Subtest: runtime config rejects wildcard/path CORS entries and invalid numeric settings
+ok 58 - runtime config rejects wildcard/path CORS entries and invalid numeric settings
+  ---
+  duration_ms: 0.326561
+  type: 'test'
+  ...
+# (node:1742) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: consistent backup restores records, history and idempotency state
+ok 59 - consistent backup restores records, history and idempotency state
+  ---
+  duration_ms: 20.257193
+  type: 'test'
+  ...
+# Subtest: backup refuses to overwrite an existing backup
+ok 60 - backup refuses to overwrite an existing backup
+  ---
+  duration_ms: 8.242734
+  type: 'test'
+  ...
+# Subtest: restore refuses to overwrite an existing destination
+ok 61 - restore refuses to overwrite an existing destination
+  ---
+  duration_ms: 8.571754
+  type: 'test'
+  ...
+# Subtest: restore rejects a corrupted backup before creating the target
+ok 62 - restore rejects a corrupted backup before creating the target
+  ---
+  duration_ms: 1.761199
+  type: 'test'
+  ...
+# Subtest: database inspector validates schema and integrity
+ok 63 - database inspector validates schema and integrity
+  ---
+  duration_ms: 5.079311
+  type: 'test'
+  ...
+# (node:1753) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: SQLite persists records and history across repository instances
+ok 64 - SQLite persists records and history across repository instances
+  ---
+  duration_ms: 3.189908
+  type: 'test'
+  ...
+# Subtest: confirm and idempotency result are atomic and replayed
+ok 65 - confirm and idempotency result are atomic and replayed
+  ---
+  duration_ms: 1.111803
+  type: 'test'
+  ...
+# Subtest: SQLite rejects stale writes
+ok 66 - SQLite rejects stale writes
+  ---
+  duration_ms: 1.153265
+  type: 'test'
+  ...
+# Subtest: SQLite file survives closing and reopening the database
+ok 67 - SQLite file survives closing and reopening the database
+  ---
+  duration_ms: 10.692315
+  type: 'test'
+  ...
+# Subtest: SQLite list is user-scoped, filterable, and paginated
+ok 68 - SQLite list is user-scoped, filterable, and paginated
+  ---
+  duration_ms: 1.073645
+  type: 'test'
+  ...
+# Subtest: SQLite schema migrations are versioned and idempotent
+ok 69 - SQLite schema migrations are versioned and idempotent
+  ---
+  duration_ms: 0.906223
+  type: 'test'
+  ...
+# Subtest: SQLite refuses to open a database migrated by a newer unsupported code version
+ok 70 - SQLite refuses to open a database migrated by a newer unsupported code version
+  ---
+  duration_ms: 0.364558
+  type: 'test'
+  ...
+# (node:1764) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: inspect validates and counts records, revisions and idempotency without modifying source
+ok 71 - inspect validates and counts records, revisions and idempotency without modifying source
+  ---
+  duration_ms: 12.581777
+  type: 'test'
+  ...
+# Subtest: dry run validates source and does not require or call PostgreSQL
+ok 72 - dry run validates source and does not require or call PostgreSQL
+  ---
+  duration_ms: 8.095598
+  type: 'test'
+  ...
+# Subtest: refuses source rows whose JSON document disagrees with indexed columns
+ok 73 - refuses source rows whose JSON document disagrees with indexed columns
+  ---
+  duration_ms: 8.58187
+  type: 'test'
+  ...
+# Subtest: refuses missing SQLite source instead of creating an empty database
+ok 74 - refuses missing SQLite source instead of creating an empty database
+  ---
+  duration_ms: 0.67118
+  type: 'test'
+  ...
+# Subtest: create always binds record to authenticated principal, ignores body userId
+ok 75 - create always binds record to authenticated principal, ignores body userId
+  ---
+  duration_ms: 1.417152
+  type: 'test'
+  ...
+# Subtest: foreign user sees not-found and cannot read record
+ok 76 - foreign user sees not-found and cannot read record
+  ---
+  duration_ms: 0.837299
+  type: 'test'
+  ...
+# Subtest: foreign user cannot mutate record
+ok 77 - foreign user cannot mutate record
+  ---
+  duration_ms: 0.308484
+  type: 'test'
+  ...
+# Subtest: missing principal fails closed
+ok 78 - missing principal fails closed
+  ---
+  duration_ms: 0.1924
+  type: 'test'
+  ...
+1..78
+# tests 78
+# suites 0
+# pass 77
+# fail 0
+# cancelled 0
+# skipped 1
+# todo 0
+# duration_ms 1378.726799

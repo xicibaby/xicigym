@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "kind": "security-technical-controls",
+  "generatedAt": "2026-10-28T14:58:41.735Z",
+  "technicalControlsPass": true,
+  "humanReviewSigned": false,
+  "securityReviewGate": "BLOCKED_PENDING_HUMAN_REVIEW",
+  "checks": [
+    {
+      "name": "S1:production-rejects-sqlite",
+      "ok": true,
+      "detail": "rejected as expected"
+    },
+    {
+      "name": "S1:production-rejects-missing-ssl-flag",
+      "ok": true,
+      "detail": "rejected as expected"
+    },
+    {
+      "name": "S1:production-rejects-weak-sslmode",
+      "ok": true,
+      "detail": "rejected as expected"
+    },
+    {
+      "name": "S1:production-rejects-http-oidc",
+      "ok": true,
+      "detail": "rejected as expected"
+    },
+    {
+      "name": "S1:production-rejects-http-cors",
+      "ok": true,
+      "detail": "rejected as expected"
+    },
+    {
+      "name": "S1:production-rejects-wildcard-cors",
+      "ok": true,
+      "detail": "rejected as expected"
+    },
+    {
+      "name": "S1:production-rejects-memory-db",
+      "ok": true,
+      "detail": "rejected as expected"
+    },
+    {
+      "name": "S1:production-accepts-verified-tls",
+      "ok": true,
+      "detail": "valid production config accepted"
+    },
+    {
+      "name": "S4:shutdown-error-redaction",
+      "ok": true,
+      "detail": "credentials redacted"
+    },
+    {
+      "name": "S4:startup-error-redaction",
+      "ok": true,
+      "detail": "failure reported without connection string"
+    },
+    {
+      "name": "S4:no-hardcoded-secrets",
+      "ok": true,
+      "detail": "scanned 35 files"
+    },
+    {
+      "name": "S3:postgres-ssl-enabled",
+      "ok": true,
+      "detail": "POSTGRES_SSL=true retained"
+    },
+    {
+      "name": "S6:lockfile-present",
+      "ok": true,
+      "detail": "lockfileVersion=3"
+    },
+    {
+      "name": "S6:pg-version-pinned",
+      "ok": true,
+      "detail": "package.json=8.16.3 lock=8.16.3"
+    },
+    {
+      "name": "S6:registry-only-sources",
+      "ok": true,
+      "detail": "all resolved from registry.npmjs.org"
+    },
+    {
+      "name": "S6:lockfile-version",
+      "ok": true,
+      "detail": "lockfileVersion=3"
+    },
+    {
+      "name": "S5:loopback-default-bind",
+      "ok": true,
+      "detail": "host=127.0.0.1 port=3000"
+    },
+    {
+      "name": "S5:probe-exposure-documented",
+      "ok": true,
+      "detail": "gateway allow-list requirement documented"
+    },
+    {
+      "name": "S5:probe-contracts-documented",
+      "ok": true,
+      "detail": "/healthz /readyz /metrics in OpenAPI"
+    },
+    {
+      "name": "S2:postgres-least-privilege",
+      "ok": true,
+      "detail": "role=health_skill_app (21 checks)"
+    },
+    {
+      "name": "S7:workflow-parses",
+      "ok": true,
+      "detail": "ci.yml parsed"
+    },
+    {
+      "name": "S7:least-privilege-token",
+      "ok": true,
+      "detail": "{\"contents\":\"read\"}"
+    },
+    {
+      "name": "S7:locked-install",
+      "ok": true,
+      "detail": "npm ci --ignore-scripts --no-audit --no-fund"
+    },
+    {
+      "name": "S7:artifacts-archived",
+      "ok": true,
+      "detail": "upload-artifact configured"
+    },
+    {
+      "name": "S7:no-pull-request-target",
+      "ok": true,
+      "detail": "trigger hardened"
+    },
+    {
+      "name": "S8:approval-template",
+      "ok": true,
+      "detail": "product/security/operations + independent approval required"
+    }
+  ],
+  "failedChecks": [],
+  "note": "本报告只覆盖可在本地自动验证的技术控制项；securityReviewPassed 必须由真实安全/运维负责人审查后单独提供，代码与 AI 不得代签。",
+  "evidence": {
+    "dbPrivilege": "artifacts/security-baseline/DB_PRIVILEGE_CHECK.json",
+    "reviewPrep": "docs/release/SECURITY_REVIEW_PREP.md"
+  },
+  "limitations": [
+    "未覆盖：真实 TLS 握手与证书链、托管服务网络策略、日志平台访问控制、备份加密与保留执行。",
+    "未覆盖：多实例共享限流/指标、容量与压测、灾备演练。",
+    "技术控制通过不等于安全审查通过。"
+  ]
+}

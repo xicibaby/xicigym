@@ -1,0 +1,30 @@
+{
+  "humanReviewSigned": false,
+  "reviewer": "<真实姓名：安全负责人>",
+  "reviewedAt": "<ISO-8601 带时区，例如 2026-11-02T10:30:00+08:00>",
+  "context": {
+    "coReviewer": "<运维负责人姓名>",
+    "environment": "<staging / production 环境标识>",
+    "evidenceBundle": "<本次发布的证据包名称与 SHA256>"
+  },
+  "scope": [
+    "tls",
+    "least-privilege",
+    "secrets",
+    "probe-exposure",
+    "logging",
+    "backup-encryption",
+    "access-control",
+    "data-compliance"
+  ],
+  "decision": "<approved | rejected>",
+  "findings": [
+    {
+      "domain": "tls",
+      "result": "<pass | pass-with-followup | fail>",
+      "evidence": "<证据链接 / 工单号 / 配置位置>",
+      "followUp": "<整改项与截止日期，可为空>"
+    }
+  ],
+  "notes": "<审查范围、保留意见与限制条件>"
+}

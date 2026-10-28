@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "eligible": false,
+  "blockers": [
+    "数据库权限、TLS 与凭据审查未通过"
+  ],
+  "decision": "BLOCKED",
+  "note": "该结果只检查提交的证据字段，不会连接数据库，也不会自动切换流量或修改数据。最终切换仍需人工批准。"
+}

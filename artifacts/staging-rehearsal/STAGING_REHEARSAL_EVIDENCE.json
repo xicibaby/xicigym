@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "kind": "local-rehearsal",
+  "generatedAt": "2026-10-28T14:58:41.331Z",
+  "allChecksPassed": true,
+  "serviceVersion": "0.25.0",
+  "environment": {
+    "baseUrl": "http://127.0.0.1:63933",
+    "operator": "local-automation",
+    "postgresVersion": "PostgreSQL 16.14",
+    "nodeVersion": "v24.21.0",
+    "disposableDatabase": true
+  },
+  "checks": [
+    {
+      "name": "seed-sqlite-source",
+      "ok": true,
+      "detail": "{\"records\":2,\"revisions\":3,\"idempotency\":1}"
+    },
+    {
+      "name": "backup-and-restore",
+      "ok": true,
+      "detail": "backup=36864B restoreSchema=1 counts={\"records\":2,\"revisions\":3,\"idempotency\":1}"
+    },
+    {
+      "name": "migration-dry-run",
+      "ok": true,
+      "detail": "{\"records\":2,\"revisions\":3,\"idempotency\":1}"
+    },
+    {
+      "name": "migration-apply",
+      "ok": true,
+      "detail": "inserted={\"records\":2,\"revisions\":3,\"idempotency\":1}"
+    },
+    {
+      "name": "migration-replay-idempotent",
+      "ok": true,
+      "detail": "alreadyPresent={\"records\":2,\"revisions\":3,\"idempotency\":1}"
+    },
+    {
+      "name": "reconciliation-zero-diff",
+      "ok": true,
+      "detail": "mismatchCount=0"
+    },
+    {
+      "name": "probe-smoke",
+      "ok": true,
+      "detail": "healthz=200 readyz=200(postgres) metrics=200 unauth=401"
+    },
+    {
+      "name": "metrics-content",
+      "ok": true,
+      "detail": "request counter + readiness gauge present"
+    },
+    {
+      "name": "graceful-shutdown",
+      "ok": true,
+      "detail": "closed=true sourceUnchanged=true"
+    }
+  ],
+  "note": "本地隔离演练，仅用于证明剧本可执行；不能替代 staging 环境演练，也不会被验收门禁接受为 staging 证据。"
+}

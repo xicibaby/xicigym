@@ -1,0 +1,389 @@
+openapi: 3.1.0
+info:
+  title: Health & Exercise Skill Unified Records API
+  version: 0.6.0-reference
+  description: >-
+    Reference contract only. The implementation includes a provider-neutral RS256 OIDC Bearer verifier,
+    but production must configure the exact issuer, audience and HTTPS JWKS endpoint from the chosen provider;
+    enforce user ownership, configure an exact CORS allowlist, use TLS, and apply shared gateway rate limits.
+    Liveness, readiness and metrics endpoints are exposed at the service root (not under /v1), are
+    unauthenticated for infrastructure probes and must be restricted to a private network or gateway allow-list.
+servers:
+  - url: https://api.example.invalid/v1
+  - url: https://api.example.invalid
+security:
+  - bearerAuth: []
+paths:
+  /records:
+    get:
+      operationId: listRecords
+      summary: List records owned by the authenticated user
+      parameters:
+        - name: limit
+          in: query
+          schema: { type: integer, minimum: 1, maximum: 100, default: 20 }
+        - name: offset
+          in: query
+          schema: { type: integer, minimum: 0, default: 0 }
+        - name: recordType
+          in: query
+          schema: { type: string, enum: [food, training, body_checkin, posture, extra_activity] }
+        - name: status
+          in: query
+          schema: { type: string, enum: [draft, confirmed, archived] }
+      responses:
+        '200': { description: Paginated records, content: { application/json: { schema: { $ref: '#/components/schemas/RecordListEnvelope' } } } }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+    post:
+      operationId: createRecordDraft
+      summary: Create a draft record for the authenticated user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/CreateRecordRequest' }
+      responses:
+        '201': { description: Draft created, content: { application/json: { schema: { $ref: '#/components/schemas/RecordEnvelope' } } } }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+  /records/{recordId}:
+    parameters:
+      - $ref: '#/components/parameters/RecordId'
+    get:
+      operationId: getRecord
+      summary: Read a record owned by the authenticated user
+      responses:
+        '200': { description: Record, content: { application/json: { schema: { $ref: '#/components/schemas/RecordEnvelope' } } } }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    patch:
+      operationId: updateDraft
+      summary: Update a draft using optimistic concurrency
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [expectedRevision, patch]
+              properties:
+                expectedRevision: { type: integer, minimum: 0 }
+                patch: { type: object, additionalProperties: true, description: 'Must not contain recordId, userId, status, schemaVersion, revision, or createdAt.' }
+      responses:
+        '200': { description: Updated record, content: { application/json: { schema: { $ref: '#/components/schemas/RecordEnvelope' } } } }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /records/{recordId}/confirm:
+    parameters:
+      - $ref: '#/components/parameters/RecordId'
+    post:
+      operationId: confirmRecord
+      summary: Confirm a draft idempotently
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [expectedRevision, idempotencyKey]
+              properties:
+                expectedRevision: { type: integer, minimum: 0 }
+                idempotencyKey: { type: string, minLength: 1, maxLength: 200 }
+      responses:
+        '200': { description: Confirmation result }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /records/{recordId}/history:
+    parameters:
+      - $ref: '#/components/parameters/RecordId'
+    get:
+      operationId: getRecordHistory
+      summary: Read revision history for an owned record
+      responses:
+        '200': { description: Revision history }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /records/{recordId}/corrections:
+    parameters:
+      - $ref: '#/components/parameters/RecordId'
+    post:
+      operationId: correctRecord
+      summary: Correct a confirmed record as a new revision
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [expectedRevision, patch]
+              properties:
+                expectedRevision: { type: integer, minimum: 0 }
+                reason: { type: string }
+                patch: { type: object, additionalProperties: true }
+      responses:
+        '200': { description: Corrected record }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /records/{recordId}/restore:
+    parameters:
+      - $ref: '#/components/parameters/RecordId'
+    post:
+      operationId: restoreRevision
+      summary: Restore an old snapshot as a new revision
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [expectedRevision, targetRevision]
+              properties:
+                expectedRevision: { type: integer, minimum: 0 }
+                targetRevision: { type: integer, minimum: 0 }
+      responses:
+        '200': { description: Restored record as a new revision }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthenticated' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /healthz:
+    get:
+      operationId: livenessProbe
+      summary: Liveness probe (unauthenticated, does not touch the database)
+      security: []
+      responses:
+        '200':
+          description: Process is alive
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [status, service, version, uptimeSeconds]
+                properties:
+                  status: { type: string, const: ok }
+                  service: { type: string }
+                  version: { type: string }
+                  uptimeSeconds: { type: integer, minimum: 0 }
+        '405': { description: Only GET and HEAD are supported }
+  /readyz:
+    get:
+      operationId: readinessProbe
+      summary: Readiness probe (unauthenticated, bounded dependency check)
+      security: []
+      responses:
+        '200':
+          description: Ready to accept traffic
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [status, ready, checkedAt]
+                properties:
+                  status: { type: string, const: ready }
+                  ready: { type: boolean, const: true }
+                  backend: { type: string, enum: [sqlite, postgres, memory] }
+                  schemaVersion: { type: integer, minimum: 1 }
+                  latencyMs: { type: integer, minimum: 0 }
+                  checkedAt: { type: string, format: date-time }
+        '503':
+          description: Not ready (dependency unavailable, schema unsupported or probe timeout)
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [status, ready, error]
+                properties:
+                  status: { type: string, const: not_ready }
+                  ready: { type: boolean, const: false }
+                  error: { type: string, enum: [postgres_unavailable, postgres_schema_unsupported, sqlite_unavailable, sqlite_schema_unsupported, readiness_timeout, readiness_check_failed, not_ready] }
+                  checkedAt: { type: string, format: date-time }
+        '405': { description: Only GET and HEAD are supported }
+  /metrics:
+    get:
+      operationId: prometheusMetrics
+      summary: Prometheus text-exposition metrics (unauthenticated, aggregate values only)
+      security: []
+      responses:
+        '200':
+          description: Prometheus text exposition format version 0.0.4
+          content:
+            text/plain:
+              schema: { type: string }
+        '405': { description: Only GET and HEAD are supported }
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Placeholder contract. A real identity provider must verify the token.
+  parameters:
+    RecordId:
+      name: recordId
+      in: path
+      required: true
+      schema: { type: string, minLength: 1 }
+  schemas:
+    CreateRecordRequest:
+      type: object
+      required: [recordId, recordType, inputMethod, createdAt, updatedAt, payload, fieldEvidence]
+      properties:
+        recordId: { type: string, minLength: 1 }
+        recordType: { type: string, enum: [food, training, body_checkin, posture, extra_activity] }
+        inputMethod: { type: string, enum: [text, voice, photo, form] }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+        payload:
+          description: >-
+            Partial payload allowed while status is draft. Runtime validation selects the
+            schema using recordType; confirmation applies record-type-specific completeness rules.
+          anyOf:
+            - { $ref: '#/components/schemas/FoodPayload' }
+            - { $ref: '#/components/schemas/TrainingPayload' }
+            - { $ref: '#/components/schemas/BodyCheckinPayload' }
+            - { $ref: '#/components/schemas/PosturePayload' }
+            - { $ref: '#/components/schemas/ExtraActivityPayload' }
+        fieldEvidence: { type: array, items: { type: object } }
+        metadata: { type: object, additionalProperties: true }
+      additionalProperties: true
+      description: userId in the request is ignored; ownership comes from authenticated principal.
+    FoodPayload:
+      type: object
+      additionalProperties: false
+      properties:
+        mealType: { type: string, enum: [breakfast, lunch, dinner, snack, other] }
+        items:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            required: [name]
+            properties:
+              name: { type: string, minLength: 1 }
+              quantity: { type: number, exclusiveMinimum: 0 }
+              unit: { type: string, minLength: 1 }
+              caloriesKcal: { type: number, minimum: 0 }
+              proteinG: { type: number, minimum: 0 }
+              carbsG: { type: number, minimum: 0 }
+              fatG: { type: number, minimum: 0 }
+              brand: { type: string }
+        note: { type: string, description: 'Legacy-compatible; prefer notes.' }
+        notes: { type: string }
+        consumedAt: { type: string, format: date-time }
+    TrainingPayload:
+      type: object
+      additionalProperties: false
+      properties:
+        activityType: { type: string, minLength: 1 }
+        exercises:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            required: [name]
+            properties:
+              name: { type: string, minLength: 1 }
+              sets: { type: integer, minimum: 0 }
+              reps: { type: integer, minimum: 0 }
+              loadKg: { type: number, minimum: 0 }
+              intensity: { type: string }
+              restSeconds: { type: integer, minimum: 0 }
+              completed: { type: boolean }
+        durationMinutes: { type: number, exclusiveMinimum: 0 }
+        intensity: { type: string, enum: [low, moderate, high, unknown] }
+        perceivedExertion: { type: number, minimum: 1, maximum: 10 }
+        painReported: { type: boolean }
+        painNotes: { type: string }
+        notes: { type: string }
+        startedAt: { type: string, format: date-time }
+        endedAt: { type: string, format: date-time }
+        equipment: { type: string }
+    BodyCheckinPayload:
+      type: object
+      additionalProperties: false
+      properties:
+        sleepHours: { type: number, minimum: 0, maximum: 24 }
+        sleepQuality: { type: number, minimum: 1, maximum: 5 }
+        energy: { type: number, minimum: 1, maximum: 5 }
+        fatigue: { type: number, minimum: 1, maximum: 5 }
+        painLevel: { type: number, minimum: 0, maximum: 10 }
+        recovery: { type: number, minimum: 1, maximum: 5 }
+        soreness: { type: number, minimum: 1, maximum: 5 }
+        notes: { type: string }
+        checkedAt: { type: string, format: date-time }
+    PosturePayload:
+      type: object
+      additionalProperties: false
+      properties:
+        photoRefs: { type: array, items: { type: string, minLength: 1 } }
+        visibleFeatures: { type: array, items: { type: string, minLength: 1 } }
+        notes: { type: string }
+        standardPhoto: { type: boolean }
+        limitations: { type: string }
+        capturedAt: { type: string, format: date-time }
+    ExtraActivityPayload:
+      type: object
+      additionalProperties: false
+      properties:
+        activityType: { type: string, minLength: 1 }
+        durationMinutes: { type: number, exclusiveMinimum: 0 }
+        intensity: { type: string, enum: [low, moderate, high, unknown] }
+        steps: { type: integer, minimum: 0 }
+        distanceKm: { type: number, minimum: 0 }
+        notes: { type: string }
+        startedAt: { type: string, format: date-time }
+        endedAt: { type: string, format: date-time }
+    RecordListEnvelope:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: object
+          required: [items, total, limit, offset]
+          properties:
+            items:
+              type: array
+              items: { type: object, additionalProperties: true }
+            total: { type: integer, minimum: 0 }
+            limit: { type: integer, minimum: 1, maximum: 100 }
+            offset: { type: integer, minimum: 0 }
+    RecordEnvelope:
+      type: object
+      required: [data]
+      properties:
+        data: { type: object, additionalProperties: true }
+    ErrorEnvelope:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: object
+          required: [code, message]
+          properties:
+            code: { type: string }
+            message: { type: string }
+            details: { type: array, items: { type: object } }
+  responses:
+    BadRequest:
+      description: Invalid request
+      content: { application/json: { schema: { $ref: '#/components/schemas/ErrorEnvelope' } } }
+    Unauthenticated:
+      description: Authentication required
+      content: { application/json: { schema: { $ref: '#/components/schemas/ErrorEnvelope' } } }
+    NotFound:
+      description: Record not found or not owned by the caller
+      content: { application/json: { schema: { $ref: '#/components/schemas/ErrorEnvelope' } } }
+    Conflict:
+      description: State or revision conflict
+      content: { application/json: { schema: { $ref: '#/components/schemas/ErrorEnvelope' } } }
+    ValidationFailed:
+      description: Record validation failed
+      content: { application/json: { schema: { $ref: '#/components/schemas/ErrorEnvelope' } } }

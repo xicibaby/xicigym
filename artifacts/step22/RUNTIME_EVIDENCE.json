@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 1,
+  "step": 22,
+  "generatedAt": "2026-10-28T14:58:25.843Z",
+  "startedAt": "2026-10-28T14:58:25.466Z",
+  "allChecksPassed": true,
+  "checks": [
+    {
+      "name": "sqlite-source-seeded",
+      "ok": true,
+      "detail": "records=3 revisions=6 idempotency=2"
+    },
+    {
+      "name": "sqlite-backup-verified",
+      "ok": true,
+      "detail": "bytes=36864 durationMs=6"
+    },
+    {
+      "name": "sqlite-restore-drill",
+      "ok": true,
+      "detail": "restoredSchemaVersion=1 durationMs=5"
+    },
+    {
+      "name": "sqlite-restore-content-equal",
+      "ok": true,
+      "detail": "{\"records\":3,\"revisions\":6,\"idempotency\":2}"
+    },
+    {
+      "name": "postgres-target-reset",
+      "ok": true,
+      "detail": "disposable target schema recreated"
+    },
+    {
+      "name": "migration-dry-run",
+      "ok": true,
+      "detail": "{\"records\":3,\"revisions\":6,\"idempotency\":2}"
+    },
+    {
+      "name": "migration-apply",
+      "ok": true,
+      "detail": "inserted={\"records\":3,\"revisions\":6,\"idempotency\":2} target={\"records\":3,\"revisions\":6,\"idempotency\":2}"
+    },
+    {
+      "name": "migration-replay-idempotent",
+      "ok": true,
+      "detail": "alreadyPresent={\"records\":3,\"revisions\":6,\"idempotency\":2}"
+    },
+    {
+      "name": "reconciliation-zero-diff",
+      "ok": true,
+      "detail": "mismatchCount=0"
+    },
+    {
+      "name": "runtime-postgres-listening",
+      "ok": true,
+      "detail": "port=63813"
+    },
+    {
+      "name": "runtime-postgres-auth-fail-closed",
+      "ok": true,
+      "detail": "status=401"
+    },
+    {
+      "name": "runtime-postgres-reads-target",
+      "ok": true,
+      "detail": "count=3"
+    },
+    {
+      "name": "runtime-postgres-graceful-shutdown",
+      "ok": true,
+      "detail": "listenerClosed=true poolClosed=true"
+    },
+    {
+      "name": "rollback-to-sqlite-drill",
+      "ok": true,
+      "detail": "status=401 counts={\"records\":3,\"revisions\":6,\"idempotency\":2}"
+    },
+    {
+      "name": "cutover-gate-evaluated",
+      "ok": true,
+      "detail": "decision=BLOCKED blockers=1"
+    }
+  ],
+  "sourceSchemaVersion": {
+    "version": 1,
+    "name": "initial_record_storage"
+  },
+  "sourceCounts": {
+    "records": 3,
+    "revisions": 6,
+    "idempotency": 2
+  },
+  "backup": {
+    "bytes": 36864,
+    "integrity": [
+      "ok"
+    ],
+    "schemaVersion": 1,
+    "durationMs": 6
+  },
+  "restore": {
+    "schemaVersion": 1,
+    "integrity": [
+      "ok"
+    ],
+    "durationMs": 5
+  },
+  "migration": {
+    "dryRun": {
+      "records": 3,
+      "revisions": 6,
+      "idempotency": 2
+    },
+    "apply": {
+      "records": 3,
+      "revisions": 6,
+      "idempotency": 2
+    },
+    "replay": {
+      "records": 3,
+      "revisions": 6,
+      "idempotency": 2
+    },
+    "targetCounts": {
+      "records": 3,
+      "revisions": 6,
+      "idempotency": 2
+    }
+  },
+  "reconciliation": {
+    "match": true,
+    "mismatchCount": 0,
+    "totals": {
+      "source": {
+        "records": 3,
+        "revisions": 6,
+        "idempotency": 2
+      },
+      "target": {
+        "records": 3,
+        "revisions": 6,
+        "idempotency": 2
+      }
+    }
+  },
+  "runtime": {
+    "backend": "postgres",
+    "port": 63813,
+    "listenerClosed": true,
+    "poolClosed": true
+  },
+  "rollback": {
+    "backend": "sqlite",
+    "port": 63816,
+    "sourceCountsUnchanged": true
+  },
+  "targetPostgresVersion": "PostgreSQL 16.14",
+  "cutoverGate": {
+    "decision": "BLOCKED",
+    "blockers": [
+      "数据库权限、TLS 与凭据审查未通过"
+    ]
+  },
+  "environment": {
+    "kind": "local-isolated-portable-postgresql",
+    "postgresBinaryVersion": "PostgreSQL 16.14",
+    "nodeVersion": "v24.21.0",
+    "disposable": true,
+    "productionTrafficSwitched": false
+  },
+  "limitations": [
+    "本演练只证明代码可在本地隔离 PostgreSQL 16 上完成迁移、对账、运行时启动与回切。",
+    "未执行 TLS、最小权限账号、秘密管理、备份加密与保留策略审查。",
+    "未在 CI 平台与正式 staging 环境执行，不构成正式验收或生产部署。"
+  ]
+}
