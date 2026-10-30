@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-28T14:58:51.461Z",
+  "generatedAt": "2026-10-29T14:23:59.612Z",
   "nodeVersion": "v24.21.0",
   "mode": "full-preacceptance-check",
   "localChecksPass": true,
@@ -17,12 +17,12 @@
   "runtimeBackend": "configurable-sqlite-postgres",
   "acceptanceGate": {
     "decision": "BLOCKED",
-    "blockingCount": 5
+    "blockingCount": 4
   },
   "acceptanceEvidencePath": "artifacts/acceptance/ACCEPTANCE_GATE_RESULT.json",
   "testSummary": {
-    "tests": 128,
-    "passed": 128,
+    "tests": 136,
+    "passed": 136,
     "failed": 0,
     "cancelled": 0,
     "skipped": 0
@@ -86,6 +86,38 @@
     },
     {
       "check": "required:scripts/next-human-action.mjs",
+      "status": "PASS"
+    },
+    {
+      "check": "required:STEP26_DATA_SAFETY_REPORT.md",
+      "status": "PASS"
+    },
+    {
+      "check": "required:scripts/step26-evidence.mjs",
+      "status": "PASS"
+    },
+    {
+      "check": "required:scripts/load-smoke.mjs",
+      "status": "PASS"
+    },
+    {
+      "check": "required:src/infrastructure/backup-crypto.js",
+      "status": "PASS"
+    },
+    {
+      "check": "required:src/infrastructure/postgres-backup.js",
+      "status": "PASS"
+    },
+    {
+      "check": "required:src/postgres-maintenance.js",
+      "status": "PASS"
+    },
+    {
+      "check": "required:ops/prometheus/alerts.yml",
+      "status": "PASS"
+    },
+    {
+      "check": "required:ops/prometheus/README.md",
       "status": "PASS"
     },
     {
@@ -227,14 +259,14 @@
     {
       "check": "javascript-syntax",
       "status": "PASS",
-      "files": 65
+      "files": 73
     },
     {
       "check": "automated-test-suite",
       "status": "PASS",
       "summary": {
-        "tests": 128,
-        "passed": 128,
+        "tests": 136,
+        "passed": 136,
         "failed": 0,
         "cancelled": 0,
         "skipped": 0
@@ -254,15 +286,29 @@
       "check": "step23-runtime-lifecycle",
       "status": "PASS",
       "checks": 12,
-      "serviceVersion": "0.25.0",
+      "serviceVersion": "0.26.0",
       "note": "证据来自 artifacts/step23/RUNTIME_LIFECYCLE_EVIDENCE.json；由 npm run evidence:step23 在隔离环境生成。"
     },
     {
       "check": "ci-local-equivalent",
       "status": "PASS",
-      "validations": 16,
+      "validations": 19,
       "ciPlatformRecord": false,
       "note": "本地等价执行；ciPlatformRecord=false，不能替代 CI 平台记录。"
+    },
+    {
+      "check": "step26-data-safety",
+      "status": "PASS",
+      "checks": 16,
+      "note": "加密备份 + PostgreSQL 逻辑恢复演练（本地隔离）。"
+    },
+    {
+      "check": "load-smoke",
+      "status": "PASS",
+      "checks": 5,
+      "requestsPerSecond": 477.3,
+      "p95Ms": 54.176,
+      "note": "轻量 HTTP 负载冒烟，不是容量压测。"
     },
     {
       "check": "staging-rehearsal",
@@ -281,12 +327,11 @@
     {
       "check": "acceptance-evidence-gate",
       "status": "BLOCKED",
-      "blockingCount": 5,
+      "blockingCount": 4,
       "note": "外部验收证据门禁结果；BLOCKED 表示外部证据未齐，不代表本地代码检查失败。"
     }
   ],
   "blockers": [
-    "验收证据：ci-platform-record: 缺少 artifacts/ci/CI_PLATFORM_RECORD.json（本地等价执行不能替代 CI 平台记录）",
     "验收证据：staging-record: 证据 kind=local-rehearsal，必须是 staging",
     "验收证据：security-review: 缺少人类安全审查记录（自动化基线审查不等于人工审查）",
     "验收证据：human-approvals: 缺少 artifacts/acceptance/APPROVALS.json（需产品/安全/运维签署 + 独立批准）",

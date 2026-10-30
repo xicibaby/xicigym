@@ -1,20 +1,20 @@
 {
   "schemaVersion": 1,
   "step": 23,
-  "generatedAt": "2026-10-28T14:58:26.246Z",
-  "startedAt": "2026-10-28T14:58:25.980Z",
+  "generatedAt": "2026-10-29T14:22:00.732Z",
+  "startedAt": "2026-10-29T14:22:00.567Z",
   "allChecksPassed": true,
-  "serviceVersion": "0.25.0",
+  "serviceVersion": "0.26.0",
   "checks": [
     {
       "name": "runtime-sqlite-listening",
       "ok": true,
-      "detail": "port=63818, version=0.25.0"
+      "detail": "port=59276, version=0.26.0"
     },
     {
       "name": "healthz-liveness",
       "ok": true,
-      "detail": "status=200 version=0.25.0 uptime=0s"
+      "detail": "status=200 version=0.26.0 uptime=0s"
     },
     {
       "name": "readyz-sqlite-ready",
@@ -44,7 +44,7 @@
     {
       "name": "readyz-postgres-ready",
       "ok": true,
-      "detail": "backend=postgres schemaVersion=1 latencyMs=1"
+      "detail": "backend=postgres schemaVersion=1 latencyMs=2"
     },
     {
       "name": "healthz-postgres-liveness",
@@ -75,7 +75,7 @@
     "note": "探针按设计不鉴权；应部署在私有网络或网关白名单后。"
   },
   "sqliteRuntime": {
-    "port": 63818,
+    "port": 59276,
     "shutdown": {
       "closed": true,
       "timedOut": false,
@@ -84,12 +84,12 @@
     }
   },
   "postgresRuntime": {
-    "port": 63822,
+    "port": 59280,
     "targetPostgresVersion": "PostgreSQL 16.14",
     "shutdown": {
       "closed": true,
       "timedOut": false,
-      "durationMs": 0,
+      "durationMs": 1,
       "resourceCloseFailures": []
     },
     "outageSimulation": "运行期关闭连接池，/readyz 返回 503，/healthz 保持 200。"

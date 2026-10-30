@@ -1,0 +1,25 @@
+{
+  "owner": "xicibaby",
+  "repo": "xicigym",
+  "visibility": "public",
+  "repoUrl": "https://github.com/xicibaby/xicigym",
+  "commit": "1e5543b4157aa924f731302e30958215e8c08d59",
+  "runUrl": "https://github.com/xicibaby/xicigym/actions/runs/40715156762",
+  "runId": 40715156762,
+  "conclusion": "success",
+  "tests": {
+    "tests": 128,
+    "passed": 128,
+    "failed": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "jobs": [
+    {
+      "name": "unit-and-postgres-integration",
+      "conclusion": "success",
+      "id": 122910717059
+    }
+  ],
+  "publishedAt": "2026-10-28T15:22:40.534Z"
+}

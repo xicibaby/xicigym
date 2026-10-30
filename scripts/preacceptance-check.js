@@ -13,6 +13,9 @@ const requiredFiles = [
   'STEP23_RUNTIME_OBSERVABILITY_REPORT.md', 'STEP23_BASELINE_AND_HANDOFF.md',
   'STEP24_EXTERNAL_EVIDENCE_REPORT.md', 'STEP24_BASELINE_AND_HANDOFF.md', 'STEP24_REVIEW_LOG.md',
   'STEP25_HUMAN_ACTION_REPORT.md', 'scripts/next-human-action.mjs',
+  'STEP26_DATA_SAFETY_REPORT.md', 'scripts/step26-evidence.mjs', 'scripts/load-smoke.mjs',
+  'src/infrastructure/backup-crypto.js', 'src/infrastructure/postgres-backup.js', 'src/postgres-maintenance.js',
+  'ops/prometheus/alerts.yml', 'ops/prometheus/README.md',
   '行动包/README_真人动作行动包.md', '行动包/01_CI平台动作卡.md', '行动包/02_staging环境动作卡.md',
   '行动包/03_安全审查动作卡.md', '行动包/04_四方签署动作卡.md', '行动包/05_门禁复核与发布动作卡.md',
   '行动包/安全审查记录模板.json', '行动包/审批记录模板.json',
@@ -86,7 +89,7 @@ let step22Evidence = null;
 try { step22Evidence = JSON.parse(await readFile(step22EvidencePath, 'utf8')); }
 catch { step22Evidence = null; }
 const realPgEvidence = step22Evidence?.allChecksPassed === true && step22Evidence?.reconciliation?.match === true;
-if (step22Evidence) {
+if (!syntaxOnly && step22Evidence) {
   const failedChecks = (step22Evidence.checks ?? []).filter((check) => check.ok !== true).map((check) => check.name);
   findings.push({
     check: 'step22-runtime-evidence',
@@ -104,7 +107,7 @@ let step23Evidence = null;
 try { step23Evidence = JSON.parse(await readFile(step23EvidencePath, 'utf8')); }
 catch { step23Evidence = null; }
 const lifecycleEvidence = step23Evidence?.allChecksPassed === true;
-if (step23Evidence) {
+if (!syntaxOnly && step23Evidence) {
   const failedChecks = (step23Evidence.checks ?? []).filter((check) => check.ok !== true).map((check) => check.name);
   findings.push({
     check: 'step23-runtime-lifecycle',
@@ -125,7 +128,7 @@ async function readJson(relativePath) {
   catch { return null; }
 }
 const ciLocalEvidence = await readJson('artifacts/ci-local/CI_LOCAL_EQUIVALENT_EVIDENCE.json');
-if (ciLocalEvidence) {
+if (!syntaxOnly && ciLocalEvidence) {
   findings.push({
     check: 'ci-local-equivalent', status: ciLocalEvidence.allValidationsPassed === true ? 'PASS' : 'FAIL',
     validations: (ciLocalEvidence.validations ?? []).length,
@@ -133,8 +136,26 @@ if (ciLocalEvidence) {
     note: '本地等价执行；ciPlatformRecord=false，不能替代 CI 平台记录。',
   });
 }
+const step26Evidence = await readJson('artifacts/step26/PG_RESTORE_DRILL_EVIDENCE.json');
+if (!syntaxOnly && step26Evidence) {
+  findings.push({
+    check: 'step26-data-safety', status: step26Evidence.allChecksPassed === true ? 'PASS' : 'FAIL',
+    checks: (step26Evidence.checks ?? []).length,
+    note: '加密备份 + PostgreSQL 逻辑恢复演练（本地隔离）。',
+  });
+}
+const loadSmoke = await readJson('artifacts/step26/LOAD_SMOKE_EVIDENCE.json');
+if (!syntaxOnly && loadSmoke) {
+  findings.push({
+    check: 'load-smoke', status: loadSmoke.allChecksPassed === true ? 'PASS' : 'FAIL',
+    checks: (loadSmoke.checks ?? []).length,
+    requestsPerSecond: loadSmoke.load?.requestsPerSecond ?? null,
+    p95Ms: loadSmoke.load?.latencyMs?.p95 ?? null,
+    note: '轻量 HTTP 负载冒烟，不是容量压测。',
+  });
+}
 const stagingRehearsal = await readJson('artifacts/staging-rehearsal/STAGING_REHEARSAL_EVIDENCE.json');
-if (stagingRehearsal) {
+if (!syntaxOnly && stagingRehearsal) {
   findings.push({
     check: 'staging-rehearsal', status: stagingRehearsal.allChecksPassed === true ? 'PASS' : 'FAIL',
     kind: stagingRehearsal.kind ?? null,
@@ -143,7 +164,7 @@ if (stagingRehearsal) {
   });
 }
 const securityBaseline = await readJson('artifacts/security-baseline/SECURITY_BASELINE_REPORT.json');
-if (securityBaseline) {
+if (!syntaxOnly && securityBaseline) {
   findings.push({
     check: 'security-technical-controls', status: securityBaseline.technicalControlsPass === true ? 'PASS' : 'FAIL',
     checks: (securityBaseline.checks ?? []).length,
@@ -152,7 +173,7 @@ if (securityBaseline) {
   });
 }
 const acceptanceGate = await readJson('artifacts/acceptance/ACCEPTANCE_GATE_RESULT.json');
-if (acceptanceGate) {
+if (!syntaxOnly && acceptanceGate) {
   findings.push({
     check: 'acceptance-evidence-gate',
     status: acceptanceGate.decision === 'READY_FOR_MANUAL_FINAL_REVIEW' ? 'PASS' : 'BLOCKED',

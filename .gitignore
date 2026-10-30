@@ -1,9 +1,9 @@
 node_modules/
-artifacts/step22/source/
-artifacts/step22/backup/
-artifacts/step23/sqlite/
-artifacts/staging-rehearsal/local/
 .env
 *.sqlite
 *.sqlite-wal
 *.sqlite-shm
+artifacts/step22/source/
+artifacts/step22/backup/
+artifacts/step23/sqlite/
+artifacts/staging-rehearsal/local/

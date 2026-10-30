@@ -16,22 +16,24 @@ npm run action:next -- --all   # 列出全部 5 件待办动作卡
 
 | # | 动作 | 负责角色 | 预计 | 需要产出的证据 |
 |---:|---|---|---|---|
-| 1 | 真实 CI 平台跑通并归档 | 研发（有推送权限） | 20–40 分钟 | `artifacts/ci/CI_PLATFORM_RECORD.json` |
+| 1 ✅ | 真实 CI 平台跑通并归档（**已完成**） | 研发（有推送权限） | 20–40 分钟 | `artifacts/ci/CI_PLATFORM_RECORD.json` ✅ |
 | 2 | 真实 staging 演练（kind=staging） | 运维 + 研发 | 30–60 分钟 | `artifacts/staging-rehearsal/STAGING_REHEARSAL_EVIDENCE.json` |
 | 3 | 人工安全审查并签署 | 安全 + 运维负责人 | 1–2 小时 | `artifacts/security-baseline/HUMAN_SECURITY_REVIEW.json` |
 | 4 | 产品/安全/运维 + 独立四方签署 | 四位负责人 | 30–60 分钟 | `artifacts/acceptance/APPROVALS.json` |
 | 5 | 切换门禁达可人工批准 | 安全 + 独立审批人 | 15–30 分钟 | `artifacts/acceptance/CUTOVER_GATE_RESULT.json` |
 
-依赖关系：3 → 5；2、4 可与 1 并行；全部完成后跑 `npm run gate:acceptance`，期望 `READY_FOR_MANUAL_FINAL_REVIEW`。
+> 动作 1 已完成：仓库 https://github.com/xicibaby/xicigym ，CI run https://github.com/xicibaby/xicigym/actions/runs/40715156762
+> （success，128/128 通过、0 跳过）。当前门禁 `BLOCKED / 4`，下一步是动作 2。
 
-## 2. 建议排期（最短路径，1–2 个工作日）
+依赖关系：3 → 5；2、4 可并行；全部完成后跑 `npm run gate:acceptance`，期望 `READY_FOR_MANUAL_FINAL_REVIEW`。
+
+## 2. 建议排期（剩余 4 项，约 1 个工作日）
 
 | 时间 | 谁 | 做什么 | 完成标志 |
 |---|---|---|---|
-| D1 上午 | 研发 | 动作 1：推仓库、跑 CI、归档记录 | `archive:ci-record` 输出 written |
-| D1 下午 | 运维 + 研发 | 动作 2：先本地预演（dry-run），再到真实 staging 执行 | 证据 `kind=staging` |
-| D2 上午 | 安全 + 运维 | 动作 3：安全审查会 + 签署 | `humanReviewSigned=true` |
-| D2 下午 | 产品/安全/运维/独立 | 动作 4：四方签署；动作 5：重算切换门禁 | 门禁返回 `READY_FOR_MANUAL_FINAL_REVIEW` |
+| D1 上午 | 运维 + 研发 | 动作 2：先本地预演（dry-run），再到真实 staging 执行 | 证据 `kind=staging` |
+| D1 下午 | 安全 + 运维 | 动作 3：安全审查会 + 签署 | `humanReviewSigned=true` |
+| D1 下午 | 产品/安全/运维/独立 | 动作 4：四方签署；动作 5：重算切换门禁 | 门禁返回 `READY_FOR_MANUAL_FINAL_REVIEW` |
 
 ## 3. 每步完成后的验证方式（任何人都能复核）
 

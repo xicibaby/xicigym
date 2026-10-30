@@ -2,6 +2,9 @@ name: record-module-ci
 
 on:
   push:
+    # Evidence-only commits (artifacts/) do not need another CI run.
+    paths-ignore:
+      - 'artifacts/**'
   pull_request:
   workflow_dispatch:
 
@@ -16,7 +19,7 @@ concurrency:
 jobs:
   unit-and-postgres-integration:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     services:
       postgres:
         image: postgres:16-alpine
@@ -43,14 +46,27 @@ jobs:
       - name: Install locked dependencies
         # package-lock.json is committed, so install exactly the reviewed tree.
         run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Audit production dependencies
+        # Fails the build on high/critical vulnerabilities in runtime dependencies.
+        run: npm audit --omit=dev --audit-level=high
       - name: Check JavaScript syntax
         run: npm run check:syntax
+      - name: Verify delivery checksums
+        run: npm run checksums:verify
       - name: Run complete suite including real PostgreSQL integration
         run: npm test
+      - name: Generate acceptance gate evidence (non-blocking)
+        # The gate is fail-closed by design (BLOCKED until human evidence exists); running it in
+        # CI only regenerates evidence artifacts for the run, it never fails the build.
+        continue-on-error: true
+        run: |
+          npm run gate:acceptance
+          npm run action:next -- --json
       - name: Archive test output
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: test-output
-          path: artifacts/
+          path: |
+            artifacts/
           if-no-files-found: ignore

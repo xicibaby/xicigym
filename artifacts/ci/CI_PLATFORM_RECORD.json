@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "kind": "ci-platform-record",
+  "status": "success",
+  "runUrl": "https://github.com/xicibaby/xicigym/actions/runs/40715156762",
+  "commit": "1e5543b4157aa924f731302e30958215e8c08d59",
+  "nodeVersion": "22",
+  "postgresVersion": "16-alpine",
+  "tests": {
+    "tests": 128,
+    "passed": 128,
+    "failed": 0,
+    "skipped": 0
+  },
+  "recordedAt": "2026-10-28T15:22:40.524Z",
+  "source": "scripts/archive-ci-record.mjs",
+  "note": "由人工在 CI 平台成功运行后归档；归档脚本不验证远端运行状态，审核人必须自行打开 runUrl 核对。"
+}

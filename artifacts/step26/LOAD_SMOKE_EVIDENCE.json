@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "kind": "load-smoke",
+  "generatedAt": "2026-10-29T14:22:56.919Z",
+  "allChecksPassed": true,
+  "checks": [
+    {
+      "name": "load:no-server-errors",
+      "ok": true,
+      "detail": "5xx=0"
+    },
+    {
+      "name": "load:no-transport-failures",
+      "ok": true,
+      "detail": "failed=0"
+    },
+    {
+      "name": "load:all-requests-ok",
+      "ok": true,
+      "detail": "200/200 in 419ms (477.3 rps)"
+    },
+    {
+      "name": "load:p95-budget",
+      "ok": true,
+      "detail": "p50=24.6ms p95=54.2ms p99=361.4ms"
+    },
+    {
+      "name": "rate-limit:429-with-retry-after",
+      "ok": true,
+      "detail": "retry-after=60s"
+    }
+  ],
+  "load": {
+    "total": 200,
+    "concurrency": 20,
+    "durationMs": 419,
+    "requestsPerSecond": 477.3,
+    "statuses": {
+      "200": 140,
+      "201": 60
+    },
+    "latencyMs": {
+      "p50": 24.5954,
+      "p90": 40.154,
+      "p95": 54.176,
+      "p99": 361.3642,
+      "max": 413.4836
+    }
+  },
+  "environment": {
+    "nodeVersion": "v24.21.0",
+    "postgresUrlIsDisposable": true,
+    "note": "HTTP + 真实 PostgreSQL；OIDC 鉴权适配器在冒烟中替换为测试主体，其余中间件与生产一致。"
+  },
+  "limitations": [
+    "这是一次轻量冒烟（200 请求 / 并发 20），不是容量压测或长时间浸泡测试。",
+    "单机单进程、无网关限流与网络延迟模拟；生产容量需在 staging 做正式压测。"
+  ]
+}

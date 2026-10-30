@@ -1,6 +1,6 @@
 # 步骤 25：「真人动作」推进报告
 
-状态：**五件真人/真实环境动作已全部变成可执行行动卡，并完成能提前验证的预演；动作本身仍未由真人执行。** 本报告不声明验收通过。
+状态：**五件真人/真实环境动作已全部变成可执行行动卡；其中第 1 件（GitHub 发布 + 真实 CI）已由 AI 使用短期令牌执行完成，其余 4 件仍需真人执行。** 本报告不声明验收通过。
 
 ## 1. 本轮目标
 
@@ -48,7 +48,7 @@ ACCEPTANCE GATE: READY_FOR_MANUAL_FINAL_REVIEW (blocking items: 0)
 ### 3.3 当前真实门禁状态（未变）
 
 ```
-ACCEPTANCE GATE: BLOCKED (blocking items: 5)
+ACCEPTANCE GATE: BLOCKED (blocking items: 5)   # CI 完成前的快照；CI 归档后为 4，见第 5 节
 - [MISSING] ci-platform-record
 - [INVALID] staging-record（当前为 local-rehearsal；dry-run 也会被拒）
 - [MISSING] security-review
@@ -79,19 +79,35 @@ ACCEPTANCE GATE: BLOCKED (blocking items: 5)
 
 每张卡固定包含：负责角色、预计耗时、前置条件、逐条命令、预期输出、失败处理、交付物清单。
 
-## 5. 仍待真人执行的 5 件事（唯一剩余路径）
+## 5. 真人动作 1 已完成：GitHub 发布 + 真实 CI 记录
+
+2026-10-28 已由 AI 使用用户提供的短期令牌完成动作 1（不是用户手动操作，也不是本地等价执行）：
+
+| 项 | 值 |
+|---|---|
+| 仓库 | https://github.com/xicibaby/xicigym （public） |
+| 首次提交 | `1e5543b4157aa924f731302e30958215e8c08d59` |
+| CI run | https://github.com/xicibaby/xicigym/actions/runs/40715156762 （success） |
+| CI 测试 | **128 项 / 128 通过 / 0 失败 / 0 跳过**（PostgreSQL 16-alpine 服务） |
+| 归档证据 | `artifacts/ci/CI_PLATFORM_RECORD.json` |
+| 门禁变化 | 阻塞 **5 → 4**；`ci-platform-record` = PASS |
+
+发布方式：无 git 二进制，改用 GitHub Git Data API 单次提交（169 文件）；空仓库先经 Contents API 落 README 首提交。
+CI 记录由脚本从 job 日志解析真实测试计数，全通过才归档；令牌文件用后已删除。
+
+## 6. 仍待真人执行的 4 件事（唯一剩余路径）
 
 | # | 动作 | 负责角色 | 预计 | 完成后证据 |
 |---:|---|---|---|---|
-| 1 | GitHub Actions 真实跑通并归档 | 研发 | 20–40 min | `artifacts/ci/CI_PLATFORM_RECORD.json` |
 | 2 | 真实 staging 演练（kind=staging） | 运维 + 研发 | 30–60 min | `artifacts/staging-rehearsal/STAGING_REHEARSAL_EVIDENCE.json` |
 | 3 | 人工安全审查签署 | 安全 + 运维 | 1–2 h | `artifacts/security-baseline/HUMAN_SECURITY_REVIEW.json` |
 | 4 | 四方签署 | 4 位负责人 | 30–60 min | `artifacts/acceptance/APPROVALS.json` |
 | 5 | 切换门禁重算至可批准 | 安全 + 独立审批人 | 15–30 min | `artifacts/acceptance/CUTOVER_GATE_RESULT.json` |
 
-最短路径：D1 上午 CI、下午 staging；D2 上午安全审查、下午签署与门禁。每完成一项跑 `npm run gate:acceptance`，阻塞数应减少；全部完成后跑 `npm run action:next` 应提示"全部外部证据已齐"。
+当前门禁：`BLOCKED / 4`；`npm run action:next` 已指向第 2 项（staging）。
+每完成一项跑 `npm run gate:acceptance`，阻塞数应减少；全部完成后 `npm run action:next` 应提示"全部外部证据已齐"。
 
-## 6. 本轮审查记录（工程审查）
+## 7. 本轮审查记录（工程审查）
 
 | 审查对象 | 方法 | 结论 |
 |---|---|---|
@@ -103,7 +119,7 @@ ACCEPTANCE GATE: BLOCKED (blocking items: 5)
 
 ## 7. 边界
 
-1. 本轮没有、也无法代替真人执行 5 项外部动作；所有"通过"均为本地/演示环境。
+1. 第 1 项（CI 平台记录）已真实完成；其余 4 项仍需真人/真实环境，本地/演示证据不能替代。
 2. 门禁 READY 演示使用 DEMO 数据，仅证明逻辑；交付包内不存在伪造证据。
 3. staging 预演不是 staging 演练；真实 staging 仍需 https 环境、真实执行人与数据库。
 4. 安全技术控制 47 项通过不等于人工审查通过；人工签署不可代签。

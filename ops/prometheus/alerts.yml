@@ -1,0 +1,56 @@
+# Prometheus alerting rules for the health-skill record API.
+# Metrics are exported by GET /metrics (Prometheus text exposition format).
+# These rules are a starting point; thresholds must be tuned with the real deployment.
+groups:
+  - name: health-skill-record-api
+    rules:
+      - alert: RecordApiNotReady
+        expr: health_skill_ready == 0
+        for: 2m
+        labels:
+          severity: critical
+          service: health-skill-record-api
+        annotations:
+          summary: "记录 API 就绪探针连续 2 分钟失败"
+          description: "/readyz 最近一次探测失败（数据库不可达或 schema 版本不受支持）。查看 /metrics 与数据库连通性，必要时回滚。"
+          runbook: "docs/release/CI_AND_STAGING_RUNBOOK.md"
+      - alert: RecordApiHigh5xxRate
+        expr: |
+          (
+            sum(rate(health_skill_http_requests_total{status=~"5.."}[5m]))
+            /
+            clamp_min(sum(rate(health_skill_http_requests_total[5m])), 1e-9)
+          ) > 0.01
+        for: 5m
+        labels:
+          severity: critical
+          service: health-skill-record-api
+        annotations:
+          summary: "记录 API 5xx 比例超过 1%"
+          description: "过去 5 分钟 5xx 占总请求比例超过 1%，检查日志与数据库连接池，按回滚手册处理。"
+          runbook: "行动包/05_门禁复核与发布动作卡.md"
+      - alert: RecordApiSchemaVersionMissing
+        expr: absent(health_skill_db_schema_version) or health_skill_db_schema_version < 1
+        for: 10m
+        labels:
+          severity: warning
+          service: health-skill-record-api
+        annotations:
+          summary: "就绪探针未上报有效 schema 版本"
+          description: "数据库迁移可能未执行或 schema_migrations 无可读版本；确认迁移窗口与 POSTGRES_AUTO_MIGRATE 配置。"
+          runbook: "MIGRATION_CUTOVER_GATE_GUIDE.md"
+      - alert: RecordApiHighRateLimitRatio
+        expr: |
+          (
+            sum(rate(health_skill_http_requests_total{status="429"}[5m]))
+            /
+            clamp_min(sum(rate(health_skill_http_requests_total[5m])), 1e-9)
+          ) > 0.2
+        for: 10m
+        labels:
+          severity: warning
+          service: health-skill-record-api
+        annotations:
+          summary: "记录 API 被限流的请求比例超过 20%"
+          description: "大量请求被限流：检查网关共享限流配置、客户端重试风暴或攻击流量；必要时按 runbook 调整阈值。"
+          runbook: "docs/release/CI_AND_STAGING_RUNBOOK.md"

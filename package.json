@@ -1,6 +1,6 @@
 {
   "name": "health-exercise-skill-record-module-preacceptance",
-  "version": "0.25.0",
+  "version": "0.26.0",
   "private": true,
   "type": "module",
   "description": "Health Skill record module with selectable SQLite/PostgreSQL runtime, probes, metrics, security baseline, evidence-based acceptance gates and a human-action navigator",
@@ -27,6 +27,8 @@
     "evidence:step23": "node scripts/step23-runtime-evidence.mjs",
     "evidence:ci-local": "node scripts/ci-local-evidence.mjs",
     "evidence:staging-rehearsal": "node scripts/staging-rehearsal.mjs --environment=local-rehearsal",
+    "evidence:step26": "node scripts/step26-evidence.mjs",
+    "load:smoke": "node scripts/load-smoke.mjs",
     "security:baseline": "node scripts/security-baseline-check.mjs",
     "security:db-privileges": "node scripts/check-db-privileges.mjs",
     "archive:ci-record": "node scripts/archive-ci-record.mjs",

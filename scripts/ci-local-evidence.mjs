@@ -93,6 +93,10 @@ async function main() {
   const missingScripts = referencedScripts.filter((name) => !availableScripts.has(name));
   record('workflow-scripts-exist', missingScripts.length === 0, missingScripts.length ? `missing: ${missingScripts.join(', ')}` : referencedScripts.join(', '));
   record('runs-syntax-and-tests', referencedScripts.includes('check:syntax') && runCommands.some((command) => command === 'npm test'), `scripts=${referencedScripts.join(',')} + npm test`);
+  record('runs-dependency-audit', runCommands.some((command) => /^npm audit --omit=dev --audit-level=high$/.test(command)), 'npm audit --omit=dev --audit-level=high');
+  record('runs-checksums-verify', referencedScripts.includes('checksums:verify'), `scripts=${referencedScripts.join(',')}`);
+  const gateStep = steps.find((step) => String(step?.run ?? '').includes('gate:acceptance'));
+  record('gate-step-non-blocking', Boolean(gateStep) && gateStep['continue-on-error'] === true, gateStep ? `continue-on-error=${gateStep['continue-on-error']}` : 'gate step missing');
 
   // --- local equivalent execution ---
   const environment = { nodeVersion: process.version, platform: `${process.platform}/${process.arch}` };
@@ -116,6 +120,9 @@ async function main() {
     ['Check JavaScript syntax', 'check:syntax', 'LOCAL_SYNTAX_OUTPUT.txt'],
     ['Run complete suite including real PostgreSQL integration', 'test', 'LOCAL_TEST_OUTPUT.txt'],
   ];
+  // `checksums:verify` is validated structurally above but not replayed here: this script rewrites
+  // artifacts/ci-local during the replay, which would invalidate the committed SHA256SUMS snapshot
+  // mid-run. The final verification is `npm run checksums:verify` after all evidence is regenerated.
   for (const [workflowStep, scriptName, outputName] of workflowSteps) {
     const command = scripts[scriptName];
     if (!command) {

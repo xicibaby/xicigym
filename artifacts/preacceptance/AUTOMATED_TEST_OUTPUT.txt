@@ -2,778 +2,826 @@ TAP version 13
 # Subtest: acceptance gate is READY only when every external evidence item is valid
 ok 1 - acceptance gate is READY only when every external evidence item is valid
   ---
-  duration_ms: 4.0124
+  duration_ms: 4.8194
   type: 'test'
   ...
 # Subtest: acceptance gate blocks an empty evidence bundle with actionable items
 ok 2 - acceptance gate blocks an empty evidence bundle with actionable items
   ---
-  duration_ms: 0.359
+  duration_ms: 0.4732
   type: 'test'
   ...
 # Subtest: local equivalent CI replay can never satisfy the CI platform requirement
 ok 3 - local equivalent CI replay can never satisfy the CI platform requirement
   ---
-  duration_ms: 0.2836
+  duration_ms: 0.3918
   type: 'test'
   ...
 # Subtest: local rehearsal evidence can never satisfy the staging requirement
 ok 4 - local rehearsal evidence can never satisfy the staging requirement
   ---
-  duration_ms: 0.2634
+  duration_ms: 0.3062
   type: 'test'
   ...
 # Subtest: automated security baseline alone cannot satisfy the human security review
 ok 5 - automated security baseline alone cannot satisfy the human security review
   ---
-  duration_ms: 0.4526
+  duration_ms: 0.393
   type: 'test'
   ...
 # Subtest: stale evidence is rejected
 ok 6 - stale evidence is rejected
   ---
-  duration_ms: 0.271
+  duration_ms: 0.2741
   type: 'test'
   ...
 # Subtest: placeholder approvals and missing roles keep the gate blocked
 ok 7 - placeholder approvals and missing roles keep the gate blocked
   ---
-  duration_ms: 0.3064
+  duration_ms: 0.3622
   type: 'test'
   ...
 # Subtest: four approvals must come from four distinct people and never include the author
 ok 8 - four approvals must come from four distinct people and never include the author
   ---
-  duration_ms: 0.3085
+  duration_ms: 0.3853
   type: 'test'
   ...
 # Subtest: cutover gate must reach manual-approval eligibility
 ok 9 - cutover gate must reach manual-approval eligibility
   ---
-  duration_ms: 0.2994
+  duration_ms: 0.3426
+  type: 'test'
+  ...
+# Subtest: encrypt/decrypt round-trips with a 32-byte key
+ok 10 - encrypt/decrypt round-trips with a 32-byte key
+  ---
+  duration_ms: 2.7141
+  type: 'test'
+  ...
+# Subtest: encrypt/decrypt round-trips with a passphrase and random salt
+ok 11 - encrypt/decrypt round-trips with a passphrase and random salt
+  ---
+  duration_ms: 151.0879
+  type: 'test'
+  ...
+# Subtest: wrong key, tampered ciphertext and tampered header all fail closed
+ok 12 - wrong key, tampered ciphertext and tampered header all fail closed
+  ---
+  duration_ms: 57.2476
+  type: 'test'
+  ...
+# Subtest: key parsing rejects missing/invalid material without echoing it
+ok 13 - key parsing rejects missing/invalid material without echoing it
+  ---
+  duration_ms: 73.1414
   type: 'test'
   ...
 # Subtest: graceful shutdown closes the listener and resources exactly once
-ok 10 - graceful shutdown closes the listener and resources exactly once
+ok 14 - graceful shutdown closes the listener and resources exactly once
   ---
-  duration_ms: 34.5912
+  duration_ms: 43.9139
   type: 'test'
   ...
 # Subtest: graceful shutdown waits for an in-flight request before closing
-ok 11 - graceful shutdown waits for an in-flight request before closing
+ok 15 - graceful shutdown waits for an in-flight request before closing
   ---
-  duration_ms: 132.1742
+  duration_ms: 143.3259
   type: 'test'
   ...
 # Subtest: graceful shutdown force-closes connections after the timeout
-ok 12 - graceful shutdown force-closes connections after the timeout
+ok 16 - graceful shutdown force-closes connections after the timeout
   ---
-  duration_ms: 163.0268
+  duration_ms: 173.7397
   type: 'test'
   ...
 # Subtest: resource close failures are reported, not thrown, and remaining resources still close
-ok 13 - resource close failures are reported, not thrown, and remaining resources still close
+ok 17 - resource close failures are reported, not thrown, and remaining resources still close
   ---
-  duration_ms: 4.2664
+  duration_ms: 6.2596
   type: 'test'
   ...
 # Subtest: shutdown validates inputs
-ok 14 - shutdown validates inputs
+ok 18 - shutdown validates inputs
   ---
-  duration_ms: 0.4436
+  duration_ms: 0.9473
   type: 'test'
   ...
 # Subtest: /healthz is unauthenticated, does not touch the database and reports version
-ok 15 - /healthz is unauthenticated, does not touch the database and reports version
+ok 19 - /healthz is unauthenticated, does not touch the database and reports version
   ---
-  duration_ms: 42.1491
+  duration_ms: 69.5887
   type: 'test'
   ...
 # Subtest: /readyz reports ready and exposes backend/schema version
-ok 16 - /readyz reports ready and exposes backend/schema version
+ok 20 - /readyz reports ready and exposes backend/schema version
   ---
-  duration_ms: 13.1808
+  duration_ms: 20.0588
   type: 'test'
   ...
 # Subtest: /readyz returns 503 when the dependency is not ready or throws
-ok 17 - /readyz returns 503 when the dependency is not ready or throws
+ok 21 - /readyz returns 503 when the dependency is not ready or throws
   ---
-  duration_ms: 19.9317
+  duration_ms: 29.468
   type: 'test'
   ...
 # Subtest: /readyz enforces the readiness timeout instead of hanging
-ok 18 - /readyz enforces the readiness timeout instead of hanging
+ok 22 - /readyz enforces the readiness timeout instead of hanging
   ---
-  duration_ms: 173.0469
+  duration_ms: 168.0659
   type: 'test'
   ...
 # Subtest: /metrics exposes counters, readiness gauge and no record content
-ok 19 - /metrics exposes counters, readiness gauge and no record content
+ok 23 - /metrics exposes counters, readiness gauge and no record content
   ---
-  duration_ms: 38.051
+  duration_ms: 50.9204
   type: 'test'
   ...
 # Subtest: probe endpoints reject unsupported methods and keep unknown paths 404
-ok 20 - probe endpoints reject unsupported methods and keep unknown paths 404
+ok 24 - probe endpoints reject unsupported methods and keep unknown paths 404
   ---
-  duration_ms: 16.2584
+  duration_ms: 19.8478
   type: 'test'
   ...
 # Subtest: readiness failures surface in the metrics readiness gauge
-ok 21 - readiness failures surface in the metrics readiness gauge
+ok 25 - readiness failures surface in the metrics readiness gauge
   ---
-  duration_ms: 13.6109
+  duration_ms: 18.4755
   type: 'test'
   ...
 # Subtest: security headers are applied to API responses
-ok 22 - security headers are applied to API responses
+ok 26 - security headers are applied to API responses
   ---
-  duration_ms: 48.2549
+  duration_ms: 71.7757
   type: 'test'
   ...
 # Subtest: CORS allows only explicitly configured origins
-ok 23 - CORS allows only explicitly configured origins
+ok 27 - CORS allows only explicitly configured origins
   ---
-  duration_ms: 16.2739
+  duration_ms: 26.9566
   type: 'test'
   ...
 # Subtest: JSON write endpoints reject missing or unsupported content type
-ok 24 - JSON write endpoints reject missing or unsupported content type
+ok 28 - JSON write endpoints reject missing or unsupported content type
   ---
-  duration_ms: 18.8074
+  duration_ms: 25.2774
   type: 'test'
   ...
 # Subtest: authenticated requests are rate limited and return Retry-After
-ok 25 - authenticated requests are rate limited and return Retry-After
+ok 29 - authenticated requests are rate limited and return Retry-After
   ---
-  duration_ms: 13.2993
+  duration_ms: 20.6705
+  type: 'test'
+  ...
+# Subtest: encrypted SQLite backup can be inspected and restored only with the right key
+ok 30 - encrypted SQLite backup can be inspected and restored only with the right key
+  ---
+  duration_ms: 138.1477
+  type: 'test'
+  ...
+# Subtest: encrypted backup refuses to overwrite an existing destination
+ok 31 - encrypted backup refuses to overwrite an existing destination
+  ---
+  duration_ms: 49.6642
+  type: 'test'
+  ...
+# Subtest: encrypted backup requires key material to restore
+ok 32 - encrypted backup requires key material to restore
+  ---
+  duration_ms: 51.2479
   type: 'test'
   ...
 # Subtest: metrics registry increments counters and renders Prometheus text
-ok 26 - metrics registry increments counters and renders Prometheus text
+ok 33 - metrics registry increments counters and renders Prometheus text
   ---
-  duration_ms: 2.0116
+  duration_ms: 2.1224
   type: 'test'
   ...
 # Subtest: metrics rendering is deterministic and escapes label values
-ok 27 - metrics rendering is deterministic and escapes label values
+ok 34 - metrics rendering is deterministic and escapes label values
   ---
-  duration_ms: 15.3236
+  duration_ms: 31.1415
   type: 'test'
   ...
 # Subtest: in-flight gauge returns to zero and counters use observeHttpRequest
-ok 28 - in-flight gauge returns to zero and counters use observeHttpRequest
+ok 35 - in-flight gauge returns to zero and counters use observeHttpRequest
   ---
-  duration_ms: 0.3487
+  duration_ms: 0.4947
   type: 'test'
   ...
 # Subtest: metrics registry rejects unsafe names, labels and values
-ok 29 - metrics registry rejects unsafe names, labels and values
+ok 36 - metrics registry rejects unsafe names, labels and values
   ---
-  duration_ms: 0.6393
+  duration_ms: 1.6648
   type: 'test'
   ...
 # Subtest: snapshot exposes current series values for assertions
-ok 30 - snapshot exposes current series values for assertions
+ok 37 - snapshot exposes current series values for assertions
   ---
-  duration_ms: 0.2015
+  duration_ms: 0.4971
   type: 'test'
   ...
 # Subtest: cutover gate fails closed for missing evidence
-ok 31 - cutover gate fails closed for missing evidence
+ok 38 - cutover gate fails closed for missing evidence
   ---
-  duration_ms: 1.4623
+  duration_ms: 2.0623
   type: 'test'
   ...
 # Subtest: cutover gate blocks if real database tests were not run
-ok 32 - cutover gate blocks if real database tests were not run
+ok 39 - cutover gate blocks if real database tests were not run
   ---
-  duration_ms: 0.3713
+  duration_ms: 0.3375
   type: 'test'
   ...
 # Subtest: cutover gate blocks even when counts match but row reconciliation has mismatches
-ok 33 - cutover gate blocks even when counts match but row reconciliation has mismatches
+ok 40 - cutover gate blocks even when counts match but row reconciliation has mismatches
   ---
-  duration_ms: 1.1492
+  duration_ms: 2.0843
   type: 'test'
   ...
 # Subtest: complete evidence permits manual review but never claims an automatic cutover
-ok 34 - complete evidence permits manual review but never claims an automatic cutover
+ok 41 - complete evidence permits manual review but never claims an automatic cutover
   ---
-  duration_ms: 0.2458
+  duration_ms: 0.4713
   type: 'test'
   ...
 # Subtest: cutover gate requires reconciliation mismatch count to be exactly integer zero
-ok 35 - cutover gate requires reconciliation mismatch count to be exactly integer zero
+ok 42 - cutover gate requires reconciliation mismatch count to be exactly integer zero
   ---
-  duration_ms: 0.1363
+  duration_ms: 0.4348
   type: 'test'
   ...
 # Subtest: OIDC verifier accepts a correctly signed token and namespaces subject by issuer
-ok 36 - OIDC verifier accepts a correctly signed token and namespaces subject by issuer
+ok 43 - OIDC verifier accepts a correctly signed token and namespaces subject by issuer
   ---
-  duration_ms: 54.9211
+  duration_ms: 76.6939
   type: 'test'
   ...
 # Subtest: OIDC verifier rejects missing authorization and malformed token
-ok 37 - OIDC verifier rejects missing authorization and malformed token
+ok 44 - OIDC verifier rejects missing authorization and malformed token
   ---
-  duration_ms: 3.8172
+  duration_ms: 9.0161
   type: 'test'
   ...
 # Subtest: OIDC verifier rejects wrong issuer, audience and expired tokens
-ok 38 - OIDC verifier rejects wrong issuer, audience and expired tokens
+ok 45 - OIDC verifier rejects wrong issuer, audience and expired tokens
   ---
-  duration_ms: 15.2203
+  duration_ms: 24.6438
   type: 'test'
   ...
 # Subtest: OIDC verifier rejects non-RS256 algorithms even if token has a valid RS256 signature
-ok 39 - OIDC verifier rejects non-RS256 algorithms even if token has a valid RS256 signature
+ok 46 - OIDC verifier rejects non-RS256 algorithms even if token has a valid RS256 signature
   ---
-  duration_ms: 5.375
+  duration_ms: 11.8796
   type: 'test'
   ...
 # Subtest: OIDC verifier requires HTTPS JWKS outside explicit tests
-ok 40 - OIDC verifier requires HTTPS JWKS outside explicit tests
+ok 47 - OIDC verifier requires HTTPS JWKS outside explicit tests
   ---
-  duration_ms: 1.5333
+  duration_ms: 3.4863
   type: 'test'
   ...
 # Subtest: OIDC verifier rejects missing subject and invalid not-before claims
-ok 41 - OIDC verifier rejects missing subject and invalid not-before claims
+ok 48 - OIDC verifier rejects missing subject and invalid not-before claims
   ---
-  duration_ms: 11.0394
+  duration_ms: 20.5551
   type: 'test'
   ...
 # Subtest: OIDC verifier throttles forced JWKS refreshes for unknown kid values
-ok 42 - OIDC verifier throttles forced JWKS refreshes for unknown kid values
+ok 49 - OIDC verifier throttles forced JWKS refreshes for unknown kid values
   ---
-  duration_ms: 19.4728
+  duration_ms: 21.6595
   type: 'test'
   ...
 # Subtest: OIDC verifier rejects oversized JWKS responses and forbids redirects
-ok 43 - OIDC verifier rejects oversized JWKS responses and forbids redirects
+ok 50 - OIDC verifier rejects oversized JWKS responses and forbids redirects
   ---
-  duration_ms: 6.1086
+  duration_ms: 7.9221
   type: 'test'
   ...
 # Subtest: end-to-end OIDC -> HTTP API -> SQLite: ownership, confirmation, history and persistence
-ok 44 - end-to-end OIDC -> HTTP API -> SQLite: ownership, confirmation, history and persistence
+ok 51 - end-to-end OIDC -> HTTP API -> SQLite: ownership, confirmation, history and persistence
   ---
-  duration_ms: 141.2842
+  duration_ms: 186.4612
+  type: 'test'
+  ...
+# Subtest: REAL PostgreSQL: logical backup round-trips into a rebuilt schema and rejects tampering
+ok 52 - REAL PostgreSQL: logical backup round-trips into a rebuilt schema and rejects tampering
+  ---
+  duration_ms: 497.7669
   type: 'test'
   ...
 # Subtest: REAL PostgreSQL: migrations, JSONB, optimistic locking, history, idempotency and ownership guards
-ok 45 - REAL PostgreSQL: migrations, JSONB, optimistic locking, history, idempotency and ownership guards
+ok 53 - REAL PostgreSQL: migrations, JSONB, optimistic locking, history, idempotency and ownership guards
   ---
-  duration_ms: 148.9901
+  duration_ms: 199.0243
   type: 'test'
   ...
 # Subtest: PostgreSQL adapter satisfies shared repository contract and requires a pool
-ok 46 - PostgreSQL adapter satisfies shared repository contract and requires a pool
+ok 54 - PostgreSQL adapter satisfies shared repository contract and requires a pool
   ---
-  duration_ms: 2.1031
+  duration_ms: 2.1745
   type: 'test'
   ...
 # Subtest: PostgreSQL insert writes record and first revision in one transaction
-ok 47 - PostgreSQL insert writes record and first revision in one transaction
+ok 55 - PostgreSQL insert writes record and first revision in one transaction
   ---
-  duration_ms: 1.4815
+  duration_ms: 2.0015
   type: 'test'
   ...
 # Subtest: PostgreSQL stale replace rolls back and does not write a revision
-ok 48 - PostgreSQL stale replace rolls back and does not write a revision
+ok 56 - PostgreSQL stale replace rolls back and does not write a revision
   ---
-  duration_ms: 0.6502
+  duration_ms: 0.8917
   type: 'test'
   ...
 # Subtest: PostgreSQL confirmation commits record, history and idempotency result together
-ok 49 - PostgreSQL confirmation commits record, history and idempotency result together
+ok 57 - PostgreSQL confirmation commits record, history and idempotency result together
   ---
-  duration_ms: 0.6027
+  duration_ms: 0.8607
   type: 'test'
   ...
 # Subtest: PostgreSQL confirmation replays a prior idempotency result without mutating record
-ok 50 - PostgreSQL confirmation replays a prior idempotency result without mutating record
+ok 58 - PostgreSQL confirmation replays a prior idempotency result without mutating record
   ---
-  duration_ms: 0.5242
+  duration_ms: 0.5021
   type: 'test'
   ...
 # Subtest: PostgreSQL migration runner uses advisory lock and applies versioned schema atomically
-ok 51 - PostgreSQL migration runner uses advisory lock and applies versioned schema atomically
+ok 59 - PostgreSQL migration runner uses advisory lock and applies versioned schema atomically
   ---
-  duration_ms: 0.9892
+  duration_ms: 0.8351
   type: 'test'
   ...
 # Subtest: PostgreSQL migration runner refuses unsupported future schema and rolls back
-ok 52 - PostgreSQL migration runner refuses unsupported future schema and rolls back
+ok 60 - PostgreSQL migration runner refuses unsupported future schema and rolls back
   ---
-  duration_ms: 0.4766
+  duration_ms: 0.5894
   type: 'test'
   ...
 # Subtest: injected pool lifecycle is caller-owned by default and only ends when explicitly requested
-ok 53 - injected pool lifecycle is caller-owned by default and only ends when explicitly requested
+ok 61 - injected pool lifecycle is caller-owned by default and only ends when explicitly requested
   ---
-  duration_ms: 0.3341
+  duration_ms: 0.3275
   type: 'test'
   ...
 # Subtest: replace enforces immutable user ownership in SQL and does not rewrite user_id
-ok 54 - replace enforces immutable user ownership in SQL and does not rewrite user_id
+ok 62 - replace enforces immutable user ownership in SQL and does not rewrite user_id
   ---
-  duration_ms: 0.5685
+  duration_ms: 3.3325
   type: 'test'
   ...
 # Subtest: confirmation checks user ownership before updating and scopes update by user_id
-ok 55 - confirmation checks user ownership before updating and scopes update by user_id
+ok 63 - confirmation checks user ownership before updating and scopes update by user_id
   ---
-  duration_ms: 0.5236
+  duration_ms: 0.8649
   type: 'test'
   ...
 # Subtest: list count rejects unsafe integer values instead of silently rounding
-ok 56 - list count rejects unsafe integer values instead of silently rounding
+ok 64 - list count rejects unsafe integer values instead of silently rounding
   ---
-  duration_ms: 0.297
+  duration_ms: 0.5762
   type: 'test'
   ...
 # Subtest: migration runner rejects gaps in the applied migration history
-ok 57 - migration runner rejects gaps in the applied migration history
+ok 65 - migration runner rejects gaps in the applied migration history
   ---
-  duration_ms: 0.1877
+  duration_ms: 0.3335
   type: 'test'
   ...
 # Subtest: pre-acceptance syntax mode reports PASS without requiring external services
-ok 58 - pre-acceptance syntax mode reports PASS without requiring external services
+ok 66 - pre-acceptance syntax mode reports PASS without requiring external services
   ---
-  duration_ms: 4457.8942
+  duration_ms: 6469.6493
   type: 'test'
   ...
 # Subtest: PostgreSQL integration safety guard accepts explicitly disposable database names
-ok 59 - PostgreSQL integration safety guard accepts explicitly disposable database names
+ok 67 - PostgreSQL integration safety guard accepts explicitly disposable database names
   ---
-  duration_ms: 0.3733
+  duration_ms: 0.4085
   type: 'test'
   ...
 # Subtest: PostgreSQL integration safety guard blocks production-like database names by default
-ok 60 - PostgreSQL integration safety guard blocks production-like database names by default
+ok 68 - PostgreSQL integration safety guard blocks production-like database names by default
   ---
-  duration_ms: 0.2124
+  duration_ms: 0.2228
   type: 'test'
   ...
 # Subtest: SQLite readiness reports backend and schema version
-ok 61 - SQLite readiness reports backend and schema version
+ok 69 - SQLite readiness reports backend and schema version
   ---
-  duration_ms: 2.6922
+  duration_ms: 3.9193
   type: 'test'
   ...
 # Subtest: SQLite readiness fails closed after the connection is closed
-ok 62 - SQLite readiness fails closed after the connection is closed
+ok 70 - SQLite readiness fails closed after the connection is closed
   ---
-  duration_ms: 1.3828
+  duration_ms: 1.0938
   type: 'test'
   ...
 # Subtest: in-memory readiness is ready and reports the memory backend
-ok 63 - in-memory readiness is ready and reports the memory backend
+ok 71 - in-memory readiness is ready and reports the memory backend
   ---
-  duration_ms: 1.2483
+  duration_ms: 1.2943
   type: 'test'
   ...
 # Subtest: PostgreSQL readiness is ready when the pool answers and schema is supported
-ok 64 - PostgreSQL readiness is ready when the pool answers and schema is supported
+ok 72 - PostgreSQL readiness is ready when the pool answers and schema is supported
   ---
-  duration_ms: 0.5121
+  duration_ms: 0.8373
   type: 'test'
   ...
 # Subtest: PostgreSQL readiness fails closed on connection errors without leaking the URL
-ok 65 - PostgreSQL readiness fails closed on connection errors without leaking the URL
+ok 73 - PostgreSQL readiness fails closed on connection errors without leaking the URL
   ---
-  duration_ms: 0.2822
+  duration_ms: 0.5974
   type: 'test'
   ...
 # Subtest: PostgreSQL readiness fails closed for an unsupported or missing schema version
-ok 66 - PostgreSQL readiness fails closed for an unsupported or missing schema version
+ok 74 - PostgreSQL readiness fails closed for an unsupported or missing schema version
   ---
-  duration_ms: 0.3009
+  duration_ms: 0.5806
   type: 'test'
   ...
 # Subtest: repository contract advertises readiness support without changing required data methods
-ok 67 - repository contract advertises readiness support without changing required data methods
+ok 75 - repository contract advertises readiness support without changing required data methods
   ---
-  duration_ms: 1.0892
+  duration_ms: 1.2
   type: 'test'
   ...
 # Subtest: accepts a valid draft and preserves user-provided fields
-ok 68 - accepts a valid draft and preserves user-provided fields
+ok 76 - accepts a valid draft and preserves user-provided fields
   ---
-  duration_ms: 3.8867
+  duration_ms: 4.388
   type: 'test'
   ...
 # Subtest: rejects unsupported record type
-ok 69 - rejects unsupported record type
+ok 77 - rejects unsupported record type
   ---
-  duration_ms: 0.3176
+  duration_ms: 0.4125
   type: 'test'
   ...
 # Subtest: rejects estimated values without a reason
-ok 70 - rejects estimated values without a reason
+ok 78 - rejects estimated values without a reason
   ---
-  duration_ms: 0.2632
+  duration_ms: 0.2884
   type: 'test'
   ...
 # Subtest: rejects datetimes without timezone
-ok 71 - rejects datetimes without timezone
+ok 79 - rejects datetimes without timezone
   ---
-  duration_ms: 1.1676
+  duration_ms: 1.3257
   type: 'test'
   ...
 # Subtest: does not auto-fill absent payload/evidence
-ok 72 - does not auto-fill absent payload/evidence
+ok 80 - does not auto-fill absent payload/evidence
   ---
-  duration_ms: 0.2927
+  duration_ms: 0.8797
   type: 'test'
   ...
 # Subtest: rejects a non-null value marked as missing
-ok 73 - rejects a non-null value marked as missing
+ok 81 - rejects a non-null value marked as missing
   ---
-  duration_ms: 0.2416
+  duration_ms: 0.2987
   type: 'test'
   ...
 # Subtest: unauthenticated request receives 401
-ok 74 - unauthenticated request receives 401
+ok 82 - unauthenticated request receives 401
   ---
-  duration_ms: 53.7891
+  duration_ms: 69.2728
   type: 'test'
   ...
 # Subtest: POST creates record under authenticated identity, not body userId
-ok 75 - POST creates record under authenticated identity, not body userId
+ok 83 - POST creates record under authenticated identity, not body userId
   ---
-  duration_ms: 18.2655
+  duration_ms: 27.0757
   type: 'test'
   ...
 # Subtest: foreign user cannot read guessed record ID
-ok 76 - foreign user cannot read guessed record ID
+ok 84 - foreign user cannot read guessed record ID
   ---
-  duration_ms: 11.0222
+  duration_ms: 21.4993
   type: 'test'
   ...
 # Subtest: client cannot patch protected ownership/state fields
-ok 77 - client cannot patch protected ownership/state fields
+ok 85 - client cannot patch protected ownership/state fields
   ---
-  duration_ms: 13.9994
+  duration_ms: 28.9273
   type: 'test'
   ...
 # Subtest: invalid expected revision returns 400
-ok 78 - invalid expected revision returns 400
+ok 86 - invalid expected revision returns 400
   ---
-  duration_ms: 13.3238
+  duration_ms: 13.4476
   type: 'test'
   ...
 # Subtest: GET /v1/records returns only the authenticated user records with pagination
-ok 79 - GET /v1/records returns only the authenticated user records with pagination
+ok 87 - GET /v1/records returns only the authenticated user records with pagination
   ---
-  duration_ms: 27.586
+  duration_ms: 41.9305
   type: 'test'
   ...
 # Subtest: GET /v1/records rejects invalid pagination and filters
-ok 80 - GET /v1/records rejects invalid pagination and filters
+ok 88 - GET /v1/records rejects invalid pagination and filters
   ---
-  duration_ms: 7.9388
+  duration_ms: 13.4966
   type: 'test'
   ...
 # Subtest: accepts complete payloads for all five record types
-ok 81 - accepts complete payloads for all five record types
+ok 89 - accepts complete payloads for all five record types
   ---
-  duration_ms: 5.2268
+  duration_ms: 8.3144
   type: 'test'
   ...
 # Subtest: allows an empty partial payload while a draft is being filled
-ok 82 - allows an empty partial payload while a draft is being filled
+ok 90 - allows an empty partial payload while a draft is being filled
   ---
-  duration_ms: 0.3432
+  duration_ms: 0.6208
   type: 'test'
   ...
 # Subtest: requires meaningful content when confirming each record type
-ok 83 - requires meaningful content when confirming each record type
+ok 91 - requires meaningful content when confirming each record type
   ---
-  duration_ms: 0.3518
+  duration_ms: 0.7185
   type: 'test'
   ...
 # Subtest: rejects invalid nutrition amounts and unknown food fields
-ok 84 - rejects invalid nutrition amounts and unknown food fields
+ok 92 - rejects invalid nutrition amounts and unknown food fields
   ---
-  duration_ms: 0.228
+  duration_ms: 0.4346
   type: 'test'
   ...
 # Subtest: rejects out-of-range body check-in values
-ok 85 - rejects out-of-range body check-in values
+ok 93 - rejects out-of-range body check-in values
   ---
-  duration_ms: 0.2207
+  duration_ms: 0.4828
   type: 'test'
   ...
 # Subtest: rejects diagnostic conclusions in posture payloads
-ok 86 - rejects diagnostic conclusions in posture payloads
+ok 94 - rejects diagnostic conclusions in posture payloads
   ---
-  duration_ms: 0.1523
+  duration_ms: 0.2611
   type: 'test'
   ...
 # Subtest: rejects malformed exercise sets and activity duration
-ok 87 - rejects malformed exercise sets and activity duration
+ok 95 - rejects malformed exercise sets and activity duration
   ---
-  duration_ms: 0.1704
+  duration_ms: 0.291
   type: 'test'
   ...
 # Subtest: in-memory and SQLite adapters satisfy the shared repository port
-ok 88 - in-memory and SQLite adapters satisfy the shared repository port
+ok 96 - in-memory and SQLite adapters satisfy the shared repository port
   ---
-  duration_ms: 2.1156
+  duration_ms: 3.798
   type: 'test'
   ...
 # Subtest: repository contract rejects incomplete adapters with actionable method names
-ok 89 - repository contract rejects incomplete adapters with actionable method names
+ok 97 - repository contract rejects incomplete adapters with actionable method names
   ---
-  duration_ms: 0.1895
+  duration_ms: 0.3705
   type: 'test'
   ...
 # Subtest: creates, reads, and edits a draft with optimistic revision checks
-ok 90 - creates, reads, and edits a draft with optimistic revision checks
+ok 98 - creates, reads, and edits a draft with optimistic revision checks
   ---
-  duration_ms: 4.4694
+  duration_ms: 5.272
   type: 'test'
   ...
 # Subtest: confirm is idempotent and cannot be used across record IDs
-ok 91 - confirm is idempotent and cannot be used across record IDs
+ok 99 - confirm is idempotent and cannot be used across record IDs
   ---
-  duration_ms: 0.9854
+  duration_ms: 1.1801
   type: 'test'
   ...
 # Subtest: confirmed records require correction workflow, and revision history is preserved
-ok 92 - confirmed records require correction workflow, and revision history is preserved
+ok 100 - confirmed records require correction workflow, and revision history is preserved
   ---
-  duration_ms: 1.1701
+  duration_ms: 3.5346
   type: 'test'
   ...
 # Subtest: restores a prior snapshot as a new revision instead of deleting history
-ok 93 - restores a prior snapshot as a new revision instead of deleting history
+ok 101 - restores a prior snapshot as a new revision instead of deleting history
   ---
-  duration_ms: 0.8459
+  duration_ms: 0.9664
   type: 'test'
   ...
 # Subtest: allows a partial draft but refuses confirmation until record-type minimum content exists
-ok 94 - allows a partial draft but refuses confirmation until record-type minimum content exists
+ok 102 - allows a partial draft but refuses confirmation until record-type minimum content exists
   ---
-  duration_ms: 0.5611
+  duration_ms: 1.1565
   type: 'test'
   ...
 # Subtest: concurrent draft edits with the same expected revision allow only one winner
-ok 95 - concurrent draft edits with the same expected revision allow only one winner
+ok 103 - concurrent draft edits with the same expected revision allow only one winner
   ---
-  duration_ms: 2.7243
+  duration_ms: 4.7365
   type: 'test'
   ...
 # Subtest: runtime config parses safe defaults and deduplicates CORS origins
-ok 96 - runtime config parses safe defaults and deduplicates CORS origins
+ok 104 - runtime config parses safe defaults and deduplicates CORS origins
   ---
-  duration_ms: 1.8947
+  duration_ms: 4.1189
   type: 'test'
   ...
 # Subtest: runtime config requires identity and persistent storage settings
-ok 97 - runtime config requires identity and persistent storage settings
+ok 105 - runtime config requires identity and persistent storage settings
   ---
-  duration_ms: 2.579
+  duration_ms: 1.8574
   type: 'test'
   ...
 # Subtest: production requires HTTPS issuer, JWKS, explicit HTTPS CORS and persistent database
-ok 98 - production requires HTTPS issuer, JWKS, explicit HTTPS CORS and persistent database
+ok 106 - production requires HTTPS issuer, JWKS, explicit HTTPS CORS and persistent database
   ---
-  duration_ms: 0.3852
+  duration_ms: 0.7523
   type: 'test'
   ...
 # Subtest: production requires TLS certificate verification (sslmode=verify-full)
-ok 99 - production requires TLS certificate verification (sslmode=verify-full)
+ok 107 - production requires TLS certificate verification (sslmode=verify-full)
   ---
-  duration_ms: 0.4163
+  duration_ms: 0.6908
   type: 'test'
   ...
 # Subtest: runtime config rejects wildcard/path CORS entries and invalid numeric settings
-ok 100 - runtime config rejects wildcard/path CORS entries and invalid numeric settings
+ok 108 - runtime config rejects wildcard/path CORS entries and invalid numeric settings
   ---
-  duration_ms: 0.3245
+  duration_ms: 0.496
   type: 'test'
   ...
 # Subtest: runtime config selects PostgreSQL and ignores SQLite path
-ok 101 - runtime config selects PostgreSQL and ignores SQLite path
+ok 109 - runtime config selects PostgreSQL and ignores SQLite path
   ---
-  duration_ms: 0.1669
+  duration_ms: 0.2686
   type: 'test'
   ...
 # Subtest: runtime config validates PostgreSQL URL and backend-specific requirements
-ok 102 - runtime config validates PostgreSQL URL and backend-specific requirements
+ok 110 - runtime config validates PostgreSQL URL and backend-specific requirements
   ---
-  duration_ms: 0.1941
+  duration_ms: 0.4184
   type: 'test'
   ...
 # Subtest: runtime config provides observability and shutdown defaults with bounds
-ok 103 - runtime config provides observability and shutdown defaults with bounds
+ok 111 - runtime config provides observability and shutdown defaults with bounds
   ---
-  duration_ms: 0.3441
+  duration_ms: 0.5557
   type: 'test'
   ...
 # Subtest: consistent backup restores records, history and idempotency state
-ok 104 - consistent backup restores records, history and idempotency state
+ok 112 - consistent backup restores records, history and idempotency state
   ---
-  duration_ms: 39.6976
+  duration_ms: 63.2368
   type: 'test'
   ...
 # Subtest: backup refuses to overwrite an existing backup
-ok 105 - backup refuses to overwrite an existing backup
+ok 113 - backup refuses to overwrite an existing backup
   ---
-  duration_ms: 19.7151
+  duration_ms: 35.842
   type: 'test'
   ...
 # Subtest: restore refuses to overwrite an existing destination
-ok 106 - restore refuses to overwrite an existing destination
+ok 114 - restore refuses to overwrite an existing destination
   ---
-  duration_ms: 25.3278
+  duration_ms: 41.3314
   type: 'test'
   ...
 # Subtest: restore rejects a corrupted backup before creating the target
-ok 107 - restore rejects a corrupted backup before creating the target
+ok 115 - restore rejects a corrupted backup before creating the target
   ---
-  duration_ms: 4.145
+  duration_ms: 7.2376
   type: 'test'
   ...
 # Subtest: database inspector validates schema and integrity
-ok 108 - database inspector validates schema and integrity
+ok 116 - database inspector validates schema and integrity
   ---
-  duration_ms: 14.35
+  duration_ms: 23.8967
   type: 'test'
   ...
 # Subtest: matching rows produce a deterministic clean reconciliation independent of JSON key order
-ok 109 - matching rows produce a deterministic clean reconciliation independent of JSON key order
+ok 117 - matching rows produce a deterministic clean reconciliation independent of JSON key order
   ---
-  duration_ms: 5.3008
+  duration_ms: 8.6984
   type: 'test'
   ...
 # Subtest: reports missing, extra, and content-different rows with keyed SHA-256 evidence
-ok 110 - reports missing, extra, and content-different rows with keyed SHA-256 evidence
+ok 118 - reports missing, extra, and content-different rows with keyed SHA-256 evidence
   ---
-  duration_ms: 12.2429
+  duration_ms: 14.8636
   type: 'test'
   ...
 # Subtest: read-only reconciliation queries the target and reports counts without writes
-ok 111 - read-only reconciliation queries the target and reports counts without writes
+ok 119 - read-only reconciliation queries the target and reports counts without writes
   ---
-  duration_ms: 23.4437
+  duration_ms: 39.8611
   type: 'test'
   ...
 # Subtest: requires a PostgreSQL query-capable pool
-ok 112 - requires a PostgreSQL query-capable pool
+ok 120 - requires a PostgreSQL query-capable pool
   ---
-  duration_ms: 1.0685
+  duration_ms: 1.1331
   type: 'test'
   ...
 # Subtest: SQLite persists records and history across repository instances
-ok 113 - SQLite persists records and history across repository instances
+ok 121 - SQLite persists records and history across repository instances
   ---
-  duration_ms: 4.8845
+  duration_ms: 8.074
   type: 'test'
   ...
 # Subtest: confirm and idempotency result are atomic and replayed
-ok 114 - confirm and idempotency result are atomic and replayed
+ok 122 - confirm and idempotency result are atomic and replayed
   ---
-  duration_ms: 1.498
+  duration_ms: 3.6853
   type: 'test'
   ...
 # Subtest: SQLite rejects stale writes
-ok 115 - SQLite rejects stale writes
+ok 123 - SQLite rejects stale writes
   ---
-  duration_ms: 1.3489
+  duration_ms: 2.5313
   type: 'test'
   ...
 # Subtest: SQLite file survives closing and reopening the database
-ok 116 - SQLite file survives closing and reopening the database
+ok 124 - SQLite file survives closing and reopening the database
   ---
-  duration_ms: 21.4153
+  duration_ms: 33.4312
   type: 'test'
   ...
 # Subtest: SQLite list is user-scoped, filterable, and paginated
-ok 117 - SQLite list is user-scoped, filterable, and paginated
+ok 125 - SQLite list is user-scoped, filterable, and paginated
   ---
-  duration_ms: 2.3961
+  duration_ms: 2.189
   type: 'test'
   ...
 # Subtest: SQLite schema migrations are versioned and idempotent
-ok 118 - SQLite schema migrations are versioned and idempotent
+ok 126 - SQLite schema migrations are versioned and idempotent
   ---
-  duration_ms: 2.1104
+  duration_ms: 2.9835
   type: 'test'
   ...
 # Subtest: SQLite refuses to open a database migrated by a newer unsupported code version
-ok 119 - SQLite refuses to open a database migrated by a newer unsupported code version
+ok 127 - SQLite refuses to open a database migrated by a newer unsupported code version
   ---
-  duration_ms: 0.5171
+  duration_ms: 0.8342
   type: 'test'
   ...
 # Subtest: inspect validates and counts records, revisions and idempotency without modifying source
-ok 120 - inspect validates and counts records, revisions and idempotency without modifying source
+ok 128 - inspect validates and counts records, revisions and idempotency without modifying source
   ---
-  duration_ms: 26.8169
+  duration_ms: 36.3327
   type: 'test'
   ...
 # Subtest: dry run validates source and does not require or call PostgreSQL
-ok 121 - dry run validates source and does not require or call PostgreSQL
+ok 129 - dry run validates source and does not require or call PostgreSQL
   ---
-  duration_ms: 19.3467
+  duration_ms: 26.0491
   type: 'test'
   ...
 # Subtest: refuses source rows whose JSON document disagrees with indexed columns
-ok 122 - refuses source rows whose JSON document disagrees with indexed columns
+ok 130 - refuses source rows whose JSON document disagrees with indexed columns
   ---
-  duration_ms: 19.0434
+  duration_ms: 33.4547
   type: 'test'
   ...
 # Subtest: refuses missing SQLite source instead of creating an empty database
-ok 123 - refuses missing SQLite source instead of creating an empty database
+ok 131 - refuses missing SQLite source instead of creating an empty database
   ---
-  duration_ms: 0.6488
+  duration_ms: 0.9072
   type: 'test'
   ...
 # Subtest: create always binds record to authenticated principal, ignores body userId
-ok 124 - create always binds record to authenticated principal, ignores body userId
+ok 132 - create always binds record to authenticated principal, ignores body userId
   ---
-  duration_ms: 1.6817
+  duration_ms: 2.6592
   type: 'test'
   ...
 # Subtest: foreign user sees not-found and cannot read record
-ok 125 - foreign user sees not-found and cannot read record
+ok 133 - foreign user sees not-found and cannot read record
   ---
-  duration_ms: 0.9293
+  duration_ms: 1.4482
   type: 'test'
   ...
 # Subtest: foreign user cannot mutate record
-ok 126 - foreign user cannot mutate record
+ok 134 - foreign user cannot mutate record
   ---
-  duration_ms: 0.3464
+  duration_ms: 0.7134
   type: 'test'
   ...
 # Subtest: missing principal fails closed
-ok 127 - missing principal fails closed
+ok 135 - missing principal fails closed
   ---
-  duration_ms: 0.1902
+  duration_ms: 0.2858
   type: 'test'
   ...
 # Subtest: reported service version matches package.json
-ok 128 - reported service version matches package.json
+ok 136 - reported service version matches package.json
   ---
-  duration_ms: 3.8034
+  duration_ms: 5.7074
   type: 'test'
   ...
-1..128
-# tests 128
+1..136
+# tests 136
 # suites 0
-# pass 128
+# pass 136
 # fail 0
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 4971.0625
+# duration_ms 7343.509
 

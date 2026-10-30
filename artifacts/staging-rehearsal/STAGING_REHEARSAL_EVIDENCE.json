@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
   "kind": "local-rehearsal",
-  "generatedAt": "2026-10-28T14:58:41.331Z",
+  "generatedAt": "2026-10-29T14:22:19.227Z",
   "allChecksPassed": true,
-  "serviceVersion": "0.25.0",
+  "serviceVersion": "0.26.0",
   "environment": {
-    "baseUrl": "http://127.0.0.1:63933",
+    "baseUrl": "http://127.0.0.1:59521",
     "operator": "local-automation",
     "postgresVersion": "PostgreSQL 16.14",
     "nodeVersion": "v24.21.0",

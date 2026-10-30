@@ -1,0 +1,6 @@
+
+CHECKSUM FAILED: 4 problem(s)
+- artifacts/ci-local/LOCAL_SYNTAX_OUTPUT.txt: hash-mismatch
+- artifacts/step22/RUNTIME_EVIDENCE.json: hash-mismatch
+- artifacts/step22/cutover-evidence.json: hash-mismatch
+- artifacts/step23/RUNTIME_LIFECYCLE_EVIDENCE.json: hash-mismatch

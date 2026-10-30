@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "kind": "local-equivalent-ci",
-  "generatedAt": "2026-10-28T14:58:40.914Z",
+  "generatedAt": "2026-10-29T14:23:35.593Z",
   "allValidationsPassed": true,
   "ciPlatformRecord": false,
   "workflow": {
     "path": ".github/workflows/ci.yml",
-    "sha256": "72f21a2e97c816dde2182841a1d265a75468ae98e86abe6265627700a19a0bf3",
+    "sha256": "e7a036fb3b1c5a7a246dba42e22345c8950122175fee05eb390b974240e06b0b",
     "nodeVersion": 22,
     "runner": "ubuntu-latest",
     "postgresImage": "postgres:16-alpine",
@@ -18,7 +18,7 @@
     {
       "name": "workflow-yaml-parses",
       "ok": true,
-      "detail": "sha256=72f21a2e97c8…"
+      "detail": "sha256=e7a036fb3b1c…"
     },
     {
       "name": "workflow-triggers",
@@ -33,7 +33,7 @@
     {
       "name": "job-runner-and-timeout",
       "ok": true,
-      "detail": "ubuntu-latest timeout=15m"
+      "detail": "ubuntu-latest timeout=20m"
     },
     {
       "name": "postgres16-service",
@@ -73,12 +73,27 @@
     {
       "name": "workflow-scripts-exist",
       "ok": true,
-      "detail": "check:syntax"
+      "detail": "check:syntax, checksums:verify"
     },
     {
       "name": "runs-syntax-and-tests",
       "ok": true,
-      "detail": "scripts=check:syntax + npm test"
+      "detail": "scripts=check:syntax,checksums:verify + npm test"
+    },
+    {
+      "name": "runs-dependency-audit",
+      "ok": true,
+      "detail": "npm audit --omit=dev --audit-level=high"
+    },
+    {
+      "name": "runs-checksums-verify",
+      "ok": true,
+      "detail": "scripts=check:syntax,checksums:verify"
+    },
+    {
+      "name": "gate-step-non-blocking",
+      "ok": true,
+      "detail": "continue-on-error=true"
     },
     {
       "name": "local-postgres-reachable",
@@ -88,12 +103,12 @@
     {
       "name": "local-step:Check JavaScript syntax",
       "ok": true,
-      "detail": "exit=0 durationMs=4423 output=artifacts\\ci-local\\LOCAL_SYNTAX_OUTPUT.txt"
+      "detail": "exit=0 durationMs=6318 output=artifacts\\ci-local\\LOCAL_SYNTAX_OUTPUT.txt"
     },
     {
       "name": "local-step:Run complete suite including real PostgreSQL integration",
       "ok": true,
-      "detail": "exit=0 durationMs=5148 output=artifacts\\ci-local\\LOCAL_TEST_OUTPUT.txt"
+      "detail": "exit=0 durationMs=7588 output=artifacts\\ci-local\\LOCAL_TEST_OUTPUT.txt"
     }
   ],
   "executed": [
@@ -101,13 +116,13 @@
       "workflowStep": "Check JavaScript syntax",
       "localCommand": "node scripts/preacceptance-check.js --syntax-only",
       "exitCode": 0,
-      "durationMs": 4423
+      "durationMs": 6318
     },
     {
       "workflowStep": "Run complete suite including real PostgreSQL integration",
       "localCommand": "node --test",
       "exitCode": 0,
-      "durationMs": 5148
+      "durationMs": 7588
     }
   ],
   "environment": {

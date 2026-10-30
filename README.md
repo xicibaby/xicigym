@@ -166,3 +166,13 @@ The remaining five blockers are irreducible human/external steps. Step 25 makes 
 - Verified this step: staging dry-run 6/6 assertions pass; gate flips to `READY_FOR_MANUAL_FINAL_REVIEW` in an isolated DEMO evidence bundle (data marked DEMO, never shipped); the real gate still reports `BLOCKED / 5`.
 
 Five human actions remain: real CI run + archive, real staging drill, human security sign-off, four-party approvals, cutover gate recomputation. See `STEP25_HUMAN_ACTION_REPORT.md` and `行动包/README_真人动作行动包.md`.
+
+## Step 26: data safety and operations hardening
+
+- Encrypted backups: `src/infrastructure/backup-crypto.js` (AES-256-GCM, `HSB1` container, header authenticated as AAD). SQLite `db:maintenance backup/restore/check` transparently encrypts/decrypts when `BACKUP_ENCRYPTION_KEY` (32-byte base64) or `BACKUP_PASSPHRASE_FILE` is present.
+- PostgreSQL logical backup/restore: `src/infrastructure/postgres-backup.js` + `src/postgres-maintenance.js` (`backup/check/restore`). Restore requires an empty target with matching migration versions, re-reads rows and re-checks the SHA-256 before commit, and rolls back on any mismatch.
+- Load smoke: `npm run load:smoke` fires 200 HTTP requests at concurrency 20 against a real PostgreSQL runtime, records p50/p90/p95/p99 and verifies the rate limiter returns 429 + Retry-After. It is a smoke test, not a capacity test.
+- Alerting: `ops/prometheus/alerts.yml` ships four starting rules (readiness down, 5xx ratio, schema version missing, 429 ratio).
+- CI hardening: dependency audit (`npm audit --omit=dev --audit-level=high`), delivery checksum verification, and non-blocking acceptance-gate evidence generation.
+- Verified: **136 tests pass (0 skipped)**, `npm run evidence:step26` 16/16 assertions, load smoke 200/200 with p95 36 ms. See `STEP26_DATA_SAFETY_REPORT.md`.
+- Boundaries: logical backups are for small/medium disaster-recovery drills (production should still use pg_dump/physical/vendor backups); encryption keys are ephemeral in the drill and must be managed by a secret manager in production; alert thresholds need tuning in the real monitoring stack.

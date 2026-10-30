@@ -1,10 +1,9 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-28T14:58:41.812Z",
+  "generatedAt": "2026-10-29T14:23:45.817Z",
   "decision": "BLOCKED",
-  "blockingCount": 5,
+  "blockingCount": 4,
   "blockers": [
-    "ci-platform-record: 缺少 artifacts/ci/CI_PLATFORM_RECORD.json（本地等价执行不能替代 CI 平台记录）",
     "staging-record: 证据 kind=local-rehearsal，必须是 staging",
     "security-review: 缺少人类安全审查记录（自动化基线审查不等于人工审查）",
     "human-approvals: 缺少 artifacts/acceptance/APPROVALS.json（需产品/安全/运维签署 + 独立批准）",
@@ -13,8 +12,8 @@
   "items": [
     {
       "item": "ci-platform-record",
-      "status": "MISSING",
-      "detail": "缺少 artifacts/ci/CI_PLATFORM_RECORD.json（本地等价执行不能替代 CI 平台记录）"
+      "status": "PASS",
+      "detail": "run=https://github.com/xicibaby/xicigym/actions/runs/40715156762 tests=128/128"
     },
     {
       "item": "staging-record",

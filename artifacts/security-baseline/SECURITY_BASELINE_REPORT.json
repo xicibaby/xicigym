@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "kind": "security-technical-controls",
-  "generatedAt": "2026-10-28T14:58:41.735Z",
+  "generatedAt": "2026-10-29T14:22:19.680Z",
   "technicalControlsPass": true,
   "humanReviewSigned": false,
   "securityReviewGate": "BLOCKED_PENDING_HUMAN_REVIEW",
@@ -59,7 +59,7 @@
     {
       "name": "S4:no-hardcoded-secrets",
       "ok": true,
-      "detail": "scanned 35 files"
+      "detail": "scanned 38 files"
     },
     {
       "name": "S3:postgres-ssl-enabled",

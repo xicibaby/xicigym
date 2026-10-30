@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-28T14:58:35.755Z",
+  "generatedAt": "2026-10-29T14:23:27.992Z",
   "nodeVersion": "v24.21.0",
   "mode": "syntax-only",
   "localChecksPass": true,
@@ -17,7 +17,7 @@
   "runtimeBackend": "configurable-sqlite-postgres",
   "acceptanceGate": {
     "decision": "BLOCKED",
-    "blockingCount": 5
+    "blockingCount": 4
   },
   "acceptanceEvidencePath": "artifacts/acceptance/ACCEPTANCE_GATE_RESULT.json",
   "testSummary": null,
@@ -80,6 +80,38 @@
     },
     {
       "check": "required:scripts/next-human-action.mjs",
+      "status": "PASS"
+    },
+    {
+      "check": "required:STEP26_DATA_SAFETY_REPORT.md",
+      "status": "PASS"
+    },
+    {
+      "check": "required:scripts/step26-evidence.mjs",
+      "status": "PASS"
+    },
+    {
+      "check": "required:scripts/load-smoke.mjs",
+      "status": "PASS"
+    },
+    {
+      "check": "required:src/infrastructure/backup-crypto.js",
+      "status": "PASS"
+    },
+    {
+      "check": "required:src/infrastructure/postgres-backup.js",
+      "status": "PASS"
+    },
+    {
+      "check": "required:src/postgres-maintenance.js",
+      "status": "PASS"
+    },
+    {
+      "check": "required:ops/prometheus/alerts.yml",
+      "status": "PASS"
+    },
+    {
+      "check": "required:ops/prometheus/README.md",
       "status": "PASS"
     },
     {
@@ -221,55 +253,11 @@
     {
       "check": "javascript-syntax",
       "status": "PASS",
-      "files": 65
-    },
-    {
-      "check": "step22-runtime-evidence",
-      "status": "PASS",
-      "checks": 15,
-      "targetPostgresVersion": "PostgreSQL 16.14",
-      "reconciliationMismatchCount": 0,
-      "cutoverGateDecision": "BLOCKED",
-      "note": "证据来自 artifacts/step22/RUNTIME_EVIDENCE.json；由 npm run evidence:step22 在隔离环境生成。"
-    },
-    {
-      "check": "step23-runtime-lifecycle",
-      "status": "PASS",
-      "checks": 12,
-      "serviceVersion": "0.25.0",
-      "note": "证据来自 artifacts/step23/RUNTIME_LIFECYCLE_EVIDENCE.json；由 npm run evidence:step23 在隔离环境生成。"
-    },
-    {
-      "check": "ci-local-equivalent",
-      "status": "PASS",
-      "validations": 16,
-      "ciPlatformRecord": false,
-      "note": "本地等价执行；ciPlatformRecord=false，不能替代 CI 平台记录。"
-    },
-    {
-      "check": "staging-rehearsal",
-      "status": "PASS",
-      "kind": "local-rehearsal",
-      "checks": 9,
-      "note": "kind=local-rehearsal；只有 kind=staging 才能被验收门禁接受。"
-    },
-    {
-      "check": "security-technical-controls",
-      "status": "PASS",
-      "checks": 26,
-      "humanReviewSigned": false,
-      "note": "自动化技术控制审查；不等于人工安全审查签署。"
-    },
-    {
-      "check": "acceptance-evidence-gate",
-      "status": "BLOCKED",
-      "blockingCount": 5,
-      "note": "外部验收证据门禁结果；BLOCKED 表示外部证据未齐，不代表本地代码检查失败。"
+      "files": 73
     }
   ],
   "blockers": [
-    "验收证据：ci-platform-record: 缺少 artifacts/ci/CI_PLATFORM_RECORD.json（本地等价执行不能替代 CI 平台记录）",
-    "验收证据：staging-record: 证据 kind=staging-dry-run，必须是 staging",
+    "验收证据：staging-record: 证据 kind=local-rehearsal，必须是 staging",
     "验收证据：security-review: 缺少人类安全审查记录（自动化基线审查不等于人工审查）",
     "验收证据：human-approvals: 缺少 artifacts/acceptance/APPROVALS.json（需产品/安全/运维签署 + 独立批准）",
     "验收证据：cutover-gate: 门禁未达可人工批准状态：数据库权限、TLS 与凭据审查未通过"
